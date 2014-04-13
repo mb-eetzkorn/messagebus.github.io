@@ -1,0 +1,14 @@
+-
+  name: foo
+  pages:
+    - one.html
+    - two.html
+    - three.html
+
+-
+  name: bar
+  pages:
+    - name: four
+      url: four.html
+    - five.html
+    - six.html

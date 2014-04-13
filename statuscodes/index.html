@@ -1,0 +1,73 @@
+---
+layout: api
+
+# ----- API DOCUMENTATION -----
+title: Create New Widget
+method: POST
+path: widgets
+
+sample: false
+
+request:
+    - type: int
+      data: [name, description]
+
+    - type: collection
+      name: moo
+      data:
+        - [name, type, description]
+
+# do not add response envelope fields, they're automatically included
+response:
+    - type: int
+      data: [name, description]
+
+    - type: collection
+      name: moo
+      data:
+        - [name, type, description]
+
+status:
+    - [200, Shit went well]
+    - [400, One or more parameters were invalid]
+    - [401, Missing or invalid API key]
+    - [406, "Invalid request format, make sure you're using <code>application/json;charset=utf-8</code>"]
+# -----------------------------
+---
+
+<!--
+    Summary/Synopsis of the API. This will be inserted below the title block and the request/response blocks.
+    Must be valid HTML.
+-->
+<p>
+    You're about to experience something <code>life changing</code>, bro.
+</p>
+
+{% include requestBlock.html %}
+{% include responseBlock.html %}
+{% include statusBlock.html %}
+
+<!--
+    Set sample == true in the frontmatter if you add sample code. Add as many as you like, but to keep pages consistent
+    do ALL your work in the Gist.
+-->
+{% if page.sample %}
+<h3 class="text-info">Sample Code</h3>
+{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
+{% endif %}
+
+<!--
+    The first two are required for every API, optionally show as many error cases as are instructive.
+-->
+<h3 class="text-info">Examples</h3>
+<span class="label label-primary">[required] fully-formed request JSON</span>
+{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
+
+<span class="label label-success">[required] success response</span>
+{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
+
+<span class="label label-warning">[optional] partial/intermediate response</span>
+{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
+
+<span class="label label-danger">[optional] error response</span>
+{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}

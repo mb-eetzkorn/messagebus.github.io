@@ -1,0 +1,41 @@
+pre
+{
+    border-radius: 0px;
+}
+
+.tab-panel
+{
+    border: solid #ddd;
+    border-width: 0 1px 1px 1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.subhead
+{
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 1;
+    margin-top: 1em;
+    color: #999999;
+}
+
+.bump-down
+{
+    margin-top: 2em;
+}
+
+.screencap
+{
+    width: 250px;
+}
+
+.box-title
+{
+    position: absolute;
+    display: inline;
+    top: -1.15em;
+    padding: 0 0.5em 0 0.5em;
+    background-color: #ffffff;
+}
+

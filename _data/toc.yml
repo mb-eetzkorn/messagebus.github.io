@@ -1,14 +1,9 @@
 -
-  name: foo
-  pages:
-    - one.html
-    - two.html
-    - three.html
+  name: General
+  sections:
+    - [statuscodes, "Status & Error Codes"]
 
 -
-  name: bar
-  pages:
-    - name: four
-      url: four.html
-    - five.html
-    - six.html
+  name: Messaging API
+  sections:
+    - [send, "Send Messages"]

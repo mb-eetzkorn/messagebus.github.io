@@ -1,73 +1,120 @@
 ---
-layout: api
+layout: default
+title: Status & Error Codes
+tocSubheads:
+        - [api, "API Status Codes"]
+        - [bounces, "Bounce Subcodes"]
+        - [blocks, "Block Codes"]
 
-# ----- API DOCUMENTATION -----
-title: Create New Widget
-method: POST
-path: widgets
+api:
+    fields: [Code, Status, Description]
+    values:
+        - [0, Success, "The API call succeeded completely and without error."]
+        - [1001, General Failure, "An error occurred but no extended information is available."]
+        - [1002, Message Validation, Missing or invalid <code>To</code> address.]
+        - [1003, Message Validation, Missing or invalid <code>From</code> address.]
+        - [1004, Message Validation, Missing <code>Subject</code> header.]
+        - [1005, Message Validation, Missing or invalid <code>Return-Path</code> address.]
+        - [1006, Message Validation, Missing or invalid <code>Message-Id</code> header.]
 
-sample: false
+bounce:
+    suppress: [10, 40, 1010]
+    fields: [Code, Reason, Description]
+    values:
+        - [0, Undetermined, "We were unable to classify the bounce, it could be something other than a bounce such
+                             as a reply from the recipient."]
+        - [10, Hard Bounce, "The recipient domain (e.g. <code>gmail.com</code> accepted the message, but later on
+                             reported the user as unknown."]
+        - [20, Soft Bounce, "The recipient domain accepted the message, but later on refused delivery for an
+                             unspecified reason."]
+        - [21, Soft Bounce, "An SMTP relay accepted the message, but due to DNS error was unable to complete delivery."]
+        - [22, Soft Bounce, "Unable to complete delivery because the recipient's mailbox is full."]
+        - [23, Soft Bounce, "Unable to complete delivery because the message is too large."]
+        - [40, General Bounce, "The message bounced but we were unable to determine the reason."]
+        - [50, Message Blocked, "The recipient domain refused delivery without specifying a reason."]
+        - [51, Message Blocked, "The recipient domain believes the sending IP is a source of spam. This may be an
+                                 indication of an IP or Domain reputation issue. Message Bus monitors all sending
+                                 sending IPs and Domains for this type of issue, but report this to us if you see it."]
+        - [52, Message Blocked, "The message was classified as spam by the recipient domain and delivery was refused."]
+        - [53, Message Blocked, "The recipient domain does not accept messages with attachments."]
+        - [54, Message Blocked, "The recipient domain believes your message was intended for an address in another
+                                 domain and has refused to relay it."]
+        - [60, Automatic Response, "The recipient address has configured an auto-responder such as an Out of Office or
+                                    Vacation Auto-Reply. Your message was delivered but may not be seen for a while."]
+        - [70, Transient Bounce, "The recipient domain accepted the message but was unable to complete delivery to the
+                                  mailbox for an unspecified reason."]
+        - [1000, Expired, "Consecutive attempts to deliver the mail failed, we gave up trying after 24 hours."]
+        - [1010, Rejected, "The recipient domain immediately refused to accept the message. This most often happens
+                            when the mailbox address is unrecognized, and the most common causes for this are typos and
+                            formerly active accounts that have been abandoned and/or closed."]
+        - [1011, Rejected, "The recipient domain rejected the message for policy reasons, the recipient address is
+                            valid."]
 
-request:
-    - type: int
-      data: [name, description]
+block:
+    fields: [Code, Type, Description]
+    values:
+        - [0, Global, The address is known to be invalid.]
+        - [1, Channel, The address is suppressed on one or more channels.]
 
-    - type: collection
-      name: moo
-      data:
-        - [name, type, description]
-
-# do not add response envelope fields, they're automatically included
-response:
-    - type: int
-      data: [name, description]
-
-    - type: collection
-      name: moo
-      data:
-        - [name, type, description]
-
-status:
-    - [200, Shit went well]
-    - [400, One or more parameters were invalid]
-    - [401, Missing or invalid API key]
-    - [406, "Invalid request format, make sure you're using <code>application/json;charset=utf-8</code>"]
-# -----------------------------
 ---
 
-<!--
-    Summary/Synopsis of the API. This will be inserted below the title block and the request/response blocks.
-    Must be valid HTML.
--->
+<script>
+    var pageScript = function()
+    {
+        jQuery(function($)
+        {
+            {{ page.bounce.suppress | jsonify }}.forEach(
+                function(id)
+                {
+                    $('#_' + id).addClass('warning');
+                });
+        });
+    }
+</script>
+
+<h2>{{ page.title }}</h2>
+<h3 class="text-info">Envelope vs. Payload</h3>
 <p>
-    You're about to experience something <code>life changing</code>, bro.
+    Responses in the REST API contain an envelope and a payload. The envelope indicates success or failure
+    of the call as well as providing metadata about the payload, if any. When the payload contains a collection, items
+    within the collection may have their own status codes. As an example, consider the response sent by the Send Message
+    API.
 </p>
+<p>
+    <code>statusCode</code> is part of the envelope and is the HTTP status code for the call. HTTP status codes are
+    documented alongside each API. <code>messageStatus</code> refers to the status of a particular message - in this
+    case <code>0</code> means the API accepted the message for delivery. If, for example, the <code>Subject</code>
+    header was missing, it would have been <code>1004</code>.
+</p>
+{% gist messagebus/1cd3c1ffafc385778845 %}
 
-{% include requestBlock.html %}
-{% include responseBlock.html %}
-{% include statusBlock.html %}
 
-<!--
-    Set sample == true in the frontmatter if you add sample code. Add as many as you like, but to keep pages consistent
-    do ALL your work in the Gist.
--->
-{% if page.sample %}
-<h3 class="text-info">Sample Code</h3>
-{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
-{% endif %}
+<h3 id="api" class="text-info">API Status Codes</h3>
+<p>
+    The following can appear in the <code>messageStatus</code> field present in responses from the Send & Template API.
+</p>
+{% include statusBlockParam.html source=page.api %}
 
-<!--
-    The first two are required for every API, optionally show as many error cases as are instructive.
--->
-<h3 class="text-info">Examples</h3>
-<span class="label label-primary">[required] fully-formed request JSON</span>
-{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
 
-<span class="label label-success">[required] success response</span>
-{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
+<h3 id="bounces" class="text-info">Bounce Codes</h3>
+<p>
+    The Report API and Webhooks provide information about bounced messages: messages we couldn't deliver due to
+    permanent or transient conditions at the recipient domain, network/DNS, or other problem preventing delivery to a
+    specific recipient.
+</p>
+<div class="alert alert-warning">
+    <strong>Note:</strong> Several bounce codes (highlighted like this) equate to "bad address". The recipient
+    addresses generating these codes will be added to the global blocklist and future messages to those addresses
+    will be suppressed.
+</div>
+{% include statusBlockParam.html source=page.bounce %}
 
-<span class="label label-warning">[optional] partial/intermediate response</span>
-{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
-
-<span class="label label-danger">[optional] error response</span>
-{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
+<h3 id="blocks" class="text-info">Block Codes</h3>
+<p>
+    We maintain two sets of blocklists. One is global and based on knowledge of bad email addresses and common
+    typographical errors (e.g. hotamil.com, gmal.com, etc.) and is applied to all accounts and channels. The other is a
+    channel-level blocklist that suppresses messages sent to recipients who have complained about or unsubscribed from
+    messages from one of your channels. When you request a list of block events from the Report API, you will see a
+    block code associated with each address in the list.
+</p>
+{% include statusBlockParam.html source=page.block %}

@@ -2,7 +2,8 @@
 <html>
 <head>
     <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/custom.css" type="text/css"/>
     <link rel="stylesheet" href="/css/syntax.css" type="text/css"/>
 </head>
 <body>
@@ -10,17 +11,25 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2">
+            {% for chapter in site.data.toc %}
 
-                {% for section in site.data.toc %}
-
-                    {{ section.name }}
-
-                    {% for page in section.pages %}
-                        <p>{{ page }}</p>
+                <h3 class="subhead">{{ chapter.name }}</h3>
+                <ul class="list-unstyled">
+                    {% for section in chapter.sections %}
+                    <li>
+                        <a href="/{{ section[0] }}">{{ section[1] }}</a>
+                        {% if page.tocSubheads and page.title == section[1] %}
+                        <ul>
+                            {% for subhead in page.tocSubheads %}
+                            <li><a class="text-warning" href="#{{ subhead[0] }}"> {{ subhead[1] }}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </li>
                     {% endfor %}
+                </ul>
 
-                {% endfor %}
-
+            {% endfor %}
             </div>
             <div class="col-md-10">
                 {{ content }}
@@ -29,11 +38,18 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 
     <!--
         TODO: google analytics or whoever we're using for tracking
     -->
+
+    <script>
+        if( pageScript != undefined )
+        {
+            pageScript();
+        }
+    </script>
 
 </body>
 </html>

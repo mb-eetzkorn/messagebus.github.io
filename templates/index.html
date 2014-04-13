@@ -2,41 +2,36 @@
 layout: api
 
 # ----- API DOCUMENTATION -----
-title: Send Messages
+title: Create New Widget
 method: POST
-path: messages/send
+path: widgets
 
 sample: false
 
 request:
-    - type: collection
-      name: messages
-      data:
-        - [sessionKey, GUID, The session to send messages with]
-        - [toEmail, string, The recipient's <code>RFC5322</code> email address]
+    - type: int
+      data: [name, description]
 
+    - type: collection
+      name: moo
+      data:
+        - [name, type, description]
+
+# do not add response envelope fields, they're automatically included
 response:
     - type: int
-      data: [successCount, Count of messages accepted for delivery]
-
-    - type: int
-      data: [failureCount, Count of messages not accepted for delivery]
+      data: [name, description]
 
     - type: collection
-      name: results
+      name: moo
       data:
-        - [toEmail, string, Address the message will be sent to]
-        - [messageId, string, The unique message-id assigned to the message]
-        - [messageStatus, int, The API status code associated with this message]
+        - [name, type, description]
 
 status:
-    - [202, All messages were accepted for delivery]
-    - [207, Not all messages were accepted for delivery]
+    - [200, Shit went well]
     - [400, One or more parameters were invalid]
     - [401, Missing or invalid API key]
-    - [406, Invalid request format; make sure you're using <code>application/json;charset=utf-8</code>]
-    - [413, Request too large; send <= 100 messages per call]
-    - [415, Request not parsable; check for JSON format errors]
+    - [406, "Invalid request format, make sure you're using <code>application/json;charset=utf-8</code>"]
 # -----------------------------
 ---
 
@@ -45,8 +40,7 @@ status:
     Must be valid HTML.
 -->
 <p>
-    Sends messages singly or in batches of up to 100 messages. The Send API is best for messages that are completely unrelated or have highly personalized or widely variable
-    content, where templates would have limited advantage or increased overhead relative to simpler API calls.
+    You're about to experience something <code>life changing</code>, bro.
 </p>
 
 {% include requestBlock.html %}

@@ -1,0 +1,161 @@
+---
+layout: default
+title: Overview
+
+sdks:
+    - name: Node
+      active: active
+      cmd: [Install via <code>npm</code>, npm install messagebus]
+      links:
+        - https://github.com/messagebus/messagebus-node-sdk/blob/master/README.md
+        - https://github.com/messagebus/messagebus-node-sdk/tree/master/samples
+        - https://github.com/messagebus/messagebus-node-sdk/tree/master/lib
+
+    - name: Ruby
+      cmd: [Install our gem, gem install messagebus-sdk]
+      links:
+        - https://github.com/messagebus/messagebus-ruby-sdk/blob/master/README.md
+        - https://github.com/messagebus/messagebus-ruby-sdk/tree/master/samples
+        - https://github.com/messagebus/messagebus-ruby-sdk/tree/master/lib
+
+    - name: PHP
+      cmd: [Clone and then copy/include however you like, "git clone http://github.com/messagebus/messagebus-php-sdk.git"]
+      links:
+        - https://github.com/messagebus/messagebus-php-sdk/blob/master/README.md
+        - https://github.com/messagebus/messagebus-php-sdk/tree/master/samples
+        - https://github.com/messagebus/messagebus-php-sdk/tree/master/src
+
+    - name: Python
+      cmd: [Install via <code>easy_install</code>, easy_install messagebus]
+      links:
+        - https://github.com/messagebus/messagebus-python-sdk/blob/master/README.md
+        - https://github.com/messagebus/messagebus-python-sdk/tree/master/messagebus/samples
+        - https://github.com/messagebus/messagebus-python-sdk/tree/master/messagebus
+
+    - name: C-Sharp
+      cmd: [Install with <code>nuget</code>, Install-Package MessageBus]
+      links:
+        - https://github.com/messagebus/messagebus-csharp-sdk/blob/master/README.md
+        - https://github.com/messagebus/messagebus-csharp-sdk/tree/master/messagebus/MessageBusSamples
+        - https://github.com/messagebus/messagebus-csharp-sdk/tree/master/MessageBus
+
+    - name: Java
+      cmd: [We maintain a private Maven repo on GitHub, "https://github.com/messagebus/mvn-repo"]
+      links:
+        - https://github.com/messagebus/messagebus-java-sdk/blob/master/README.md
+        - https://github.com/messagebus/messagebus-java-sdk/tree/master/src/samples
+        - https://github.com/messagebus/messagebus-java-sdk/tree/master/src/messagebus/client
+---
+
+<h2>Overview</h2>
+<p>
+    Integrating with {{ site.data.company.name }} is a snap, bookmark this page as a handy reference for the API and
+    services/info related to using {{ site.data.company.name }}.
+</p>
+
+<h3 class="text-info">Authentication</h3>
+<p>
+    Message Bus authenticates requests by checking for an API key, which must be present in every request regardless
+    of the access method used. Your API key can be found by logging into your account and going to
+    <code>App Settings->API</code>.
+</p>
+
+<h3 class="text-info">Request Format</h3>
+<p>
+    When using the REST API, ensure that the <code>content-type</code> is set to <code>application/json; charset=utf-8</code>
+    or the API will return HTTP error <code>406</code>. The hostname for all secure REST calls is <code>api.messagebus.com</code>.
+</p>
+
+<h3 class="text-info">Access Methods</h3>
+<p>
+    The Message Bus API is the recommended way to use the platform; you may directly integrate using the REST API, and
+    SDKs containing samples and documentation are provided in six languages. If you are using Message Bus to secure,
+    segment, or perform engagement monitoring on messages sent using existing SMTP infrastructure, you'll want to read
+    up on using our <a href="#todo">SMTP Relay</a>.
+</p>
+
+<ul style="width: 60%;" class="nav nav-tabs">
+    {% for sdk in page.sdks %}
+    <li class="{{ sdk.active }}"><a href="#{{ sdk.name }}" data-toggle="tab">{{ sdk.name }}</a></li>
+    {% endfor %}
+</ul>
+
+<div style="width: 60%;" class="tab-content">
+    {% for sdk in page.sdks %}
+    <div class="tab-pane {{ sdk.active }}" id="{{ sdk.name }}">
+        <div class="panel panel-default tab-panel">
+            <div class="panel-body">
+                <p>
+                    <em>
+                        <a href="{{ sdk.links[0] }}">Intro</a> &#149
+                        <a href="{{ sdk.links[1] }}">Samples</a> &#149
+                        <a href="{{ sdk.links[2] }}">Source</a>
+                    </em>
+                </p>
+                <p>{{ sdk.cmd[0] }}:</p>
+                <pre style="margin-bottom: 0px;">{{ sdk.cmd[1] }}</pre>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<h3 class="text-info">Putting it all together</h3>
+<p class="subhead">Step 1: Test your account credentials.</p>
+
+<div class="alert alert-danger">
+    <strong>Note:</strong> These examples use fake API and Channel keys. You must use your own in order for the
+    examples to work. Happy testing!
+</div>
+
+<p>
+    A quick test to make sure your API key is valid is to retrieve the list of channels on your account. Use <code>curl</code>
+    or a similar tool to manually call the REST API, or run sample code in the SDK of your choice.
+</p>
+<span class="label label-primary">Request</span>
+{% gist messagebus/a7c2a5399fc69adf76f7 %}
+
+<span class="label label-success">Response</span>
+{% gist messagebus/08f9a9f5afa1900028ef %}
+
+<p class="subhead">Step 2: Send a test message.</p>
+<p>
+    Copy the <code>defaultSessionKey</code> from one of the channels returned in the last step, and use it with the
+    following to create a file called <code>test_message.json</code> on your local drive and try to send it.
+</p>
+{% gist messagebus/f6748886287da4ac9234 %}
+
+
+<span class="label label-primary">Request</span>
+{% gist messagebus/a8a92f540ede7f75a968 %}
+
+<span class="label label-success">Response</span>
+{% gist messagebus/1cd3c1ffafc385778845 %}
+
+<p>
+    If you're doing a lot of command-line testing with our API, we recommend piping the output through
+    <a href="https://github.com/rafeca/prettyjson">prettyjson</a>, it makes life easier.
+</p>
+
+<h3 class="text-info">Service Status</h3>
+<p>
+    We publish system status using <a href="http://pingdom.com">Pingdom</a> and <a href="http://status.io">Status.io</a>
+    (they're great, if you need service monitoring with built-in status pages, check them out).
+</p>
+<p class="subhead"><a href="http://status.messagebus.com">status.messagebus.com</a></p>
+<p>
+    High-level system status, updated every 5 minutes. Useful for general troubleshooting and proudly displaying on
+    your mission control dashboard.
+</p>
+<p>
+    <img src="/assets/status.io.png"/>
+</p>
+
+<p class="subhead"><a href="http://pingdom.messagebus.com">pingdom.messagebus.com</a></p>
+<p>
+    Shows what's behind the load-balancers. This page will help you figure out if you suspect you're getting routed
+    to a box that's in trouble.
+</p>
+<p>
+    <img src="/assets/pingdom.png"/>
+</p>

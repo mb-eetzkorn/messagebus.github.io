@@ -1,120 +1,89 @@
 ---
 layout: api
+
+# ----- API DOCUMENTATION -----
 title: Send Messages
-verb: POST
-version: v5
+method: POST
 path: messages/send
+
+sample: false
+
+request:
+    - type: collection
+      name: messages
+      data:
+        - [sessionKey, GUID, The session to send messages with]
+        - [toEmail, string, The recipient's <code>RFC5322</code> email address]
+        - [toName, string, The recipient's friendly name]
+        - [fromEmail, string, The sender's <code>RFC5322</code> email address]
+        - [fromName, string, The sender's friendly name]
+        - [returnPath, string, The sender's <code>RFC5321</code> bounce address]
+        - [subject, string, The message subject line]
+        - [plaintextBody, string, "The plain text version of the message, shown by mail programs that cannot render HTML"]
+        - [htmlBody, string, The HTML version of the message]
+        - [customHeaders, collection, Custom headers to insert into the message]
+
+response:
+    - type: int
+      data: [successCount, Count of messages accepted for delivery]
+
+    - type: int
+      data: [failureCount, Count of messages not accepted for delivery]
+
+    - type: collection
+      name: results
+      data:
+        - [toEmail, string, Address the message will be sent to]
+        - [messageId, string, The unique message-id assigned to the message]
+        - [messageStatus, int, The API status code associated with this message]
+
+status:
+    fields: [Code, Description]
+    values:
+        - [202, All messages were accepted for delivery]
+        - [207, Not all messages were accepted for delivery]
+        - [400, One or more parameters were invalid]
+        - [401, Missing or invalid API key]
+        - [406, Invalid request format; make sure you're using <code>application/json;charset=utf-8</code>]
+        - [413, Request too large; send <= 100 messages per call]
+        - [415, Request not parsable; check for JSON format errors]
+# -----------------------------
 ---
 
+<!--
+    Summary/Synopsis of the API. This will be inserted below the title block and the request/response blocks.
+    Must be valid HTML.
+-->
 <p>
-    DESCRIPTION
+    Sends messages singly or in batches of up to 100 messages. The Send API is best for messages that are completely unrelated or have highly personalized or widely variable
+    content, where templates would have limited advantage or increased overhead relative to simpler API calls.
 </p>
 
-<h1>{{ page.title }}</h1>
-<span class="label label-default">{{ page.verb }}</span><code class="api-title"> {{ page.version }}/{{ page.path }}</code>
-<br/>
-<br/>
+{% include requestBlock.html %}
+{% include responseBlock.html %}
 
-<h2>Usage</h2>
-<p>
-    The hostname for all API calls is <code>https://api.messagebus.com</code>, and when POSTing data to the
-    Message Bus API we require the <code>content-type: application/json; charset=utf-8</code> and
-    <code>x-messagebus-key: {apiKey}</code> request headers be set.
-</p>
+<h3 class="text-info">HTTP Status Codes</h3>
+{% include statusBlockParam.html source=page.status %}
 
-<h2>Parameters</h2>
-<table class="table table-striped table-bordered">
-    <thead>
-    <tr>
-        <td>Field</td>
-        <td>Description</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>
+<!--
+    Set sample == true in the frontmatter if you add sample code. Add as many as you like, but to keep pages consistent
+    do ALL your work in the Gist.
+-->
+{% if page.sample %}
+<h3 class="text-info">Sample Code</h3>
+{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
+{% endif %}
 
-<h2>Return Values</h2>
-<table class="table table-striped table-bordered">
-    <thead>
-    <tr>
-        <td>Field</td>
-        <td>Description</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>results</td>
-        <td>
-            <table>
-                <tr>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<h2>Examples</h2>
+<!--
+    The first two are required for every API, optionally show as many error cases as are instructive.
+-->
+<h3 class="text-info">Examples</h3>
 <span class="label label-primary">Request</span>
-<pre>curl</pre>
+{% gist messagebus/6b403a5e1e394945bc13 %}
 
 <span class="label label-success">Success</span>
-<pre></pre>
+{% gist messagebus/4d2fe6d54e1ea387459c %}
 
-<span class="label label-warning">Warning</span>
-<pre></pre>
-
-<span class="label label-danger">Error</span>
-<pre></pre>
+<span class="label label-warning">Partial Success</span>
+{% gist messagebus/1be7b073a4e3a836b28d %}
 

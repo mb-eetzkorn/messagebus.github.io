@@ -1,0 +1,60 @@
+---
+layout: api
+
+# ----- API DOCUMENTATION -----
+title: Delete Webhook
+method: DELETE
+path: webhook/:webhookKey
+
+sample: false
+
+# do not add response envelope fields, they're automatically included
+response:
+    - []
+
+status:
+fields: [statusCode, statusMessage]
+values:
+- [201, "Webhook created."]
+- [202, "Messages accepted; delivery pending."]
+- [207, "Not all messages were accepted; see messageStatus for more details."]
+- [400, "One or more parameters were invalid."]
+- [401, "Unauthorized; missing or invalid API key."]
+- [403, "Unauthorized; insufficient permission."]
+- [406, "Not acceptable; use application/json; charset=utf-8."]
+- [413, "Request too large; send <= 100 messages per batch."]
+- [415, "Request unparsable; check POST JSON."]
+# -----------------------------
+---
+
+<!--
+    Summary/Synopsis of the API. This will be inserted below the title block and the request/response blocks.
+    Must be valid HTML.
+-->
+<p>
+    Deletes a webhook, this is irreversible. If all you want to do is stop receiving the event, consider
+    disabling the webhook instead.
+</p>
+
+{% include apiBlockParam.html title="Request"  source=page.request type="noContent" %}
+{% include apiBlockParam.html title="Response" source=page.response %}
+{% include statusBlockParam.html source=page.status %}
+
+<!--
+    The first two are required for every API, optionally show as many error cases as are instructive.
+-->
+<h3 class="text-info">Usage</h3>
+<span class="label label-primary">Request</span>
+{% gist messagebus/a6189ce12f612409666c %}
+
+<span class="label label-success">Response</span>
+{% gist messagebus/9d13f0e3c9a37bd4f67a %}
+
+<!--
+    Set sample == true in the frontmatter if you add sample code. Add as many as you like, but to keep pages consistent
+    do ALL your work in the Gist.
+-->
+{% if page.sample %}
+<h3 class="text-info">Examples</h3>
+{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
+{% endif %}

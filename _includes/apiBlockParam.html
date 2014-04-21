@@ -1,0 +1,68 @@
+<h3 class="text-info">{{ include.title }}</h3>
+
+{% if include.type %}
+<p class="subhead">Headers</p>
+<table class="table table-striped table-bordered">
+    <thead class="bg-info" style="font-weight: bold;">
+    <tr>
+        <td>Header</td>
+        <td>Example</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="field-name">x-messagebus-key</td>
+        <td class="field-name-light">x-messagebus-key: 1111111111ABCDEF0123456789ABCDEF</td>
+    </tr>
+    {% if include.type == "hasContent" %}
+    <tr>
+        <td class="field-name">content-type</td>
+        <td class="field-name-light">application/json; charset=utf-8</td>
+    </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+{% if include.source %} <p class="subhead">Body</p> {% endif %}
+{% endif %}
+
+{% if include.source %}
+<table class="table table-striped table-bordered">
+    <thead class="bg-info" style="font-weight: bold;">
+    <tr>
+        <td>Field</td>
+        <td>Type</td>
+        <td>Description</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% if include.title == "Response" %}
+        {% include responseEnvelope.html %}
+    {% endif %}
+
+    {% for param in include.source %}
+    <tr>
+        {% if param[1] == 'collection' %}
+        <td class="field-name">{{ param[0] }}</td>
+        <td>{{ param[1] }}</td>
+        <td>
+            <table class="table table-striped table-bordered" style="margin-bottom: 0px;">
+                {% for param in param[2] %}
+                <tr>
+                    {% for item in param %}
+                    <td {% if forloop.first %} class="field-name" {% endif %}>{{ item }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </td>
+        {% else %}
+            {% for item in param %}
+            <td {% if forloop.first %} class="field-name" {% endif %}>{{ item }}</td>
+            {% endfor %}
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}

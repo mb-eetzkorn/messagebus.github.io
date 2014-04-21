@@ -1,0 +1,65 @@
+---
+layout: api
+
+# ----- API DOCUMENTATION -----
+title: List Webhooks
+method: GET
+path: webhooks
+
+sample: true
+
+response:
+    - [
+        webhooks,
+        collection,
+        [
+            [enabled, bool, "If <code>true</code> the webhook is actively firing events."],
+            [uri, string, "The HTTP endpoint called by the webhook service."],
+            [webhookKey, guid, "The webhook's unique-id, to be used in other calls to the Webhook API."],
+            [eventType, string, "The event this webhook services. The same webhook-uri can service many events, but each webhook-uri/event tuple gets a unique-id."],
+            [channelKey, guid, "The channel this webhook fires events for. If <code>null</code> the webhook is active on all channels."],
+            [dateCreated, datetime, "Creation timestamp."],
+            [lastUpdated, datetime, "Last modified timestamp."]
+        ]
+    ]
+
+status:
+    fields: [statusCode, statusMessage]
+    values:
+        - [200, Ok]
+        - [401, "Unauthorized; missing or invalid API key."]
+# -----------------------------
+---
+
+<!--
+    Summary/Synopsis of the API. This will be inserted below the title block and the request/response blocks.
+    Must be valid HTML.
+-->
+<p>
+    Lists all webhooks registered under the account.
+</p>
+
+{% include apiBlockParam.html title="Request"  type="noContent" %}
+{% include apiBlockParam.html title="Response" source=page.response %}
+{% include statusBlockParam.html source=page.status %}
+
+
+<!--
+    The first two are required for every API, optionally show as many error cases as are instructive.
+-->
+<h3 class="text-info">Usage</h3>
+<span class="label label-primary">Request</span>
+{% gist messagebus/e509d82b7e5f26ba3087 %}
+
+<span class="label label-success">Response</span>
+{% gist messagebus/1b5df7efa27be6983702 %}
+
+<!--
+    Set sample == true in the frontmatter if you add sample code. Add as many as you like, but to keep pages consistent
+    do ALL your work in the Gist.
+-->
+{% if page.sample %}
+<h3 class="text-info">Examples</h3>
+<p class="subhead">Node</p>
+{% gist messagebus/618cce57658d002cc6d6 %}
+{% endif %}

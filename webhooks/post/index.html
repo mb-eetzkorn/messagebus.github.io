@@ -2,31 +2,29 @@
 layout: api
 
 # ----- API DOCUMENTATION -----
-title: Create New Widget
+title: Create Webhook
 method: POST
-path: widgets
+path: webhooks
 
 sample: false
 
 request:
-    - [name, type, description]
+    - [enabled, bool, "Turns the webhook on or off. Optional, true by default."]
+    - [uri, string, "The customer-supplied HTTP endpoint the Webhook Service will POST to."]
+    - [eventType, string, "The event to send to this webhook."]
+    - [channelKey, guid, "Restrict operation to a single channel. Optional, defaults to the account."]
 
 # do not add response envelope fields, they're automatically included
 response:
-    - [name, type, description]
+    - [webhookKey, guid, "Unique-Id for the new webhook."]
 
 status:
     fields: [statusCode, statusMessage]
     values:
         - [201, "Webhook created."]
-        - [202, "Messages accepted; delivery pending."]
-        - [207, "Not all messages were accepted; see messageStatus for more details."]
         - [400, "One or more parameters were invalid."]
         - [401, "Unauthorized; missing or invalid API key."]
         - [403, "Unauthorized; insufficient permission."]
-        - [406, "Not acceptable; use application/json; charset=utf-8."]
-        - [413, "Request too large; send <= 100 messages per batch."]
-        - [415, "Request unparsable; check POST JSON."]
 # -----------------------------
 ---
 
@@ -35,7 +33,7 @@ status:
     Must be valid HTML.
 -->
 <p>
-    You're about to experience something <code>life changing</code>, bro.
+    Create a webhook for a specific event and attach it to a specific channel or the entire account.
 </p>
 
 {% include apiBlockParam.html title="Request"  source=page.request type="hasContent" %}
@@ -46,17 +44,11 @@ status:
     The first two are required for every API, optionally show as many error cases as are instructive.
 -->
 <h3 class="text-info">Usage</h3>
-<span class="label label-primary">[required] Request</span>
-{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
+<span class="label label-primary">Request</span>
+{% gist messagebus/c5795a3d32bf09e23d85 %}
 
-<span class="label label-success">[required] Response</span>
-{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
-
-<span class="label label-warning">[optional] partial/intermediate response</span>
-{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
-
-<span class="label label-danger">[optional] error response</span>
-{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
+<span class="label label-success">Response</span>
+{% gist messagebus/dfe4a3173579c1c1736c %}
 
 <!--
     Set sample == true in the frontmatter if you add sample code. Add as many as you like, but to keep pages consistent

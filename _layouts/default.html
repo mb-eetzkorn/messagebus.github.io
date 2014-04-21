@@ -17,11 +17,11 @@
                 <ul class="list-unstyled">
                     {% for section in chapter.sections %}
                     <li>
-                        <a href="/{{ section[0] }}">{{ section[1] }}</a>
+                        <a {% if page.title == section[1] %} class="active-section" {% endif %} href="/{{ section[0] }}">{{ section[1] }}</a>
                         {% if page.tocSubheads and page.title == section[1] %}
-                        <ul>
+                        <ul class="toc-subhead">
                             {% for subhead in page.tocSubheads %}
-                            <li><a class="text-warning" href="#{{ subhead[0] }}"> {{ subhead[1] }}</a></li>
+                            <li><small><a class="text-warning" href="#{{ subhead[0] }}">&raquo; {{ subhead[1] }}</a></small></li>
                             {% endfor %}
                         </ul>
                         {% endif %}

@@ -7,3 +7,13 @@
   name: Messaging API
   sections:
     - [send, "Send Messages"]
+
+-
+  name: Webhooks
+  sections:
+    - [webhooks,        "Webhooks 101"]
+    - [webhooks/list,   "List Webhooks"]
+    - [webhooks/get,    "Get a Webhook"]
+    - [webhooks/post,   "Create Webhook"]
+    - [webhooks/put,    "Update Webhook"]
+    - [webhooks/delete, "Delete Webhook"]

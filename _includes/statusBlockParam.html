@@ -9,9 +9,25 @@
     <tbody>
     {% for status in include.source.values %}
     <tr id="_{{ status[0] }}">
-        {% for item in status %}
-        <td>{{ item }}</td>
-        {% endfor %}
+        {% if status[1] == "collection" %}
+        <td class="field-name">{{ status[0] }}</td>
+        <td>{{ status[1] }}</td>
+        <td>
+            <table class="table table-bordered table-striped table-bordered" style="margin-bottom: 0px;">
+                {% for field in status[2] %}
+                <tr>
+                    {% for item in field %}
+                    <td {% if forloop.first %} class="field-name" {% endif %}>{{ item }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </td>
+        {% else %}
+            {% for item in status %}
+            <td {% if forloop.first %} class="field-name" {% endif %}>{{ item }}</td>
+            {% endfor %}
+        {% endif %}
     </tr>
     {% endfor %}
     </tbody>

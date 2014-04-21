@@ -9,44 +9,46 @@ path: messages/send
 sample: false
 
 request:
-    - type: collection
-      name: messages
-      data:
-        - [sessionKey, GUID, The session to send messages with]
-        - [toEmail, string, The recipient's <code>RFC5322</code> email address]
-        - [toName, string, The recipient's friendly name]
-        - [fromEmail, string, The sender's <code>RFC5322</code> email address]
-        - [fromName, string, The sender's friendly name]
-        - [returnPath, string, The sender's <code>RFC5321</code> bounce address]
-        - [subject, string, The message subject line]
-        - [plaintextBody, string, "The plain text version of the message, shown by mail programs that cannot render HTML"]
-        - [htmlBody, string, The HTML version of the message]
-        - [customHeaders, collection, Custom headers to insert into the message]
+    - [
+        messages,
+        collection,
+        [
+            [sessionKey, GUID, The session to send messages with],
+            [toEmail, string, The recipient's <code>RFC5322</code> email address],
+            [toName, string, The recipient's friendly name],
+            [fromEmail, string, The sender's <code>RFC5322</code> email address],
+            [fromName, string, The sender's friendly name],
+            [returnPath, string, The sender's <code>RFC5321</code> bounce address],
+            [subject, string, The message subject line],
+            [plaintextBody, string, "The plain text version of the message, shown by mail programs that cannot render HTML"],
+            [htmlBody, string, The HTML version of the message],
+            [customHeaders, collection, Custom headers to insert into the message]
+        ]
+    ]
 
 response:
-    - type: int
-      data: [successCount, Count of messages accepted for delivery]
-
-    - type: int
-      data: [failureCount, Count of messages not accepted for delivery]
-
-    - type: collection
-      name: results
-      data:
-        - [toEmail, string, Address the message will be sent to]
-        - [messageId, string, The unique message-id assigned to the message]
-        - [messageStatus, int, The API status code associated with this message]
+    - [successCount, int, Count of messages accepted for delivery]
+    - [failureCount, int, Count of messages not accepted for delivery]
+    - [
+        results,
+        collection,
+        [
+            [toEmail, string, Address the message will be sent to],
+            [messageId, string, The unique message-id assigned to the message],
+            [messageStatus, int, The API status code associated with this message]
+        ]
+    ]
 
 status:
-    fields: [Code, Description]
+    fields: [statusCode, statusMessage]
     values:
-        - [202, All messages were accepted for delivery]
-        - [207, Not all messages were accepted for delivery]
-        - [400, One or more parameters were invalid]
-        - [401, Missing or invalid API key]
-        - [406, Invalid request format; make sure you're using <code>application/json;charset=utf-8</code>]
-        - [413, Request too large; send <= 100 messages per call]
-        - [415, Request not parsable; check for JSON format errors]
+        - [202, "Messages accepted; delivery pending."]
+        - [207, "Not all messages were accepted; see messageStatus for more details."]
+        - [400, "One or more parameters were invalid."]
+        - [401, "Unauthorized; missing or invalid API key."]
+        - [406, "Not acceptable; use application/json; charset=utf-8."]
+        - [413, "Request too large; send <= 100 messages per batch."]
+        - [415, "Request unparsable; check POST JSON."]
 # -----------------------------
 ---
 
@@ -59,25 +61,14 @@ status:
     content, where templates would have limited advantage or increased overhead relative to simpler API calls.
 </p>
 
-{% include requestBlock.html %}
-{% include responseBlock.html %}
-
-<h3 class="text-info">HTTP Status Codes</h3>
+{% include apiBlockParam.html title="Request"  source=page.request type="hasContent" %}
+{% include apiBlockParam.html title="Response" source=page.response %}
 {% include statusBlockParam.html source=page.status %}
-
-<!--
-    Set sample == true in the frontmatter if you add sample code. Add as many as you like, but to keep pages consistent
-    do ALL your work in the Gist.
--->
-{% if page.sample %}
-<h3 class="text-info">Sample Code</h3>
-{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
-{% endif %}
 
 <!--
     The first two are required for every API, optionally show as many error cases as are instructive.
 -->
-<h3 class="text-info">Examples</h3>
+<h3 class="text-info">Usage</h3>
 <span class="label label-primary">Request</span>
 {% gist messagebus/6b403a5e1e394945bc13 %}
 
@@ -87,3 +78,11 @@ status:
 <span class="label label-warning">Partial Success</span>
 {% gist messagebus/1be7b073a4e3a836b28d %}
 
+<!--
+    Set sample == true in the frontmatter if you add sample code. Add as many as you like, but to keep pages consistent
+    do ALL your work in the Gist.
+-->
+{% if page.sample %}
+<h3 class="text-info">Examples</h3>
+{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
+{% endif %}

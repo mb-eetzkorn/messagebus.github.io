@@ -1,3 +1,22 @@
+{% comment %}
+
+Usage:
+
+    - source: specifies the parameters to include. Must be [Field, Type, Description]. Use statusBlockParam if you need
+              to control column headings, this template is for API only. When Type == 'collection', the Description
+              field can contain [Field, Type, Description] arrays that describe the contents of the collection.
+
+    - title: must be either "Request" or "Response". Response will trigger inclusion of the envelope fields.
+
+    - type: either "hasContent" or "noContent" and controls whether the Request block shows only the API key
+            or also includes the content-type header.
+
+    - optional: an array of fieldNames that when matched will cause the [Optional] label to be applied to the
+                parameter.
+
+{% endcomment %}
+
+
 <h3 class="text-info">{{ include.title }}</h3>
 
 {% if include.type %}
@@ -5,7 +24,7 @@
 <table class="table table-striped table-bordered">
     <thead class="bg-info" style="font-weight: bold;">
     <tr>
-        <td>Header</td>
+        <td style="width: 20%;">Header</td>
         <td>Example</td>
     </tr>
     </thead>
@@ -30,8 +49,8 @@
 <table class="table table-striped table-bordered">
     <thead class="bg-info" style="font-weight: bold;">
     <tr>
-        <td>Field</td>
-        <td>Type</td>
+        <td style="width: 20%;">Field</td>
+        <td style="width: 10%;">Type</td>
         <td>Description</td>
     </tr>
     </thead>
@@ -41,16 +60,38 @@
     {% endif %}
 
     {% for param in include.source %}
+
+    {% assign optional_outer_param = false %}
+    {% for item in include.optional %}
+        {% if item == param[0] %}
+            {% assign optional_outer_param = true %}
+        {% endif %}
+    {% endfor %}
+
     <tr>
         {% if param[1] == 'collection' %}
-        <td class="field-name">{{ param[0] }}</td>
+        <td class="field-name">
+            {{ param[0] }}
+            {% if optional_outer_param == true %}<span class="label label-default">Optional</span>{% endif %}
+        </td>
         <td>{{ param[1] }}</td>
         <td>
             <table class="table table-striped table-bordered" style="margin-bottom: 0px;">
                 {% for param in param[2] %}
+
+                {% assign optional_inner_param = false %}
+                {% for item in include.optional %}
+                    {% if item == param[0] %}
+                        {% assign optional_inner_param = true %}
+                    {% endif %}
+                {% endfor %}
+
                 <tr>
                     {% for item in param %}
-                    <td {% if forloop.first %} class="field-name" {% endif %}>{{ item }}</td>
+                        <td {% if forloop.first %} class="field-name" style="width: 25%;" {% endif %}>
+                            {{ item }}
+                            {% if forloop.first and optional_inner_param == true %}<span class="label label-default">Optional</span>{% endif %}
+                        </td>
                     {% endfor %}
                 </tr>
                 {% endfor %}
@@ -58,7 +99,10 @@
         </td>
         {% else %}
             {% for item in param %}
-            <td {% if forloop.first %} class="field-name" {% endif %}>{{ item }}</td>
+            <td {% if forloop.first %} class="field-name" {% endif %}>
+                {{ item }}
+                {% if forloop.first and optional_outer_param == true %}<span class="label label-default">Optional</span>{% endif %}
+            </td>
             {% endfor %}
         {% endif %}
     </tr>

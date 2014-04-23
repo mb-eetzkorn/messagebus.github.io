@@ -1,0 +1,76 @@
+---
+layout: api
+
+# ----- API DOCUMENTATION -----
+title: Send Template
+method: POST
+path: templates/send
+
+sample: false
+
+# specify optional request parameters with the optional: [] array
+optional: [messages]
+
+request:
+    - [templateKey, guid, "Selects the template to send."]
+    - [messages, collection, "Merge data to match tokenized template fields, see <a href=\"/templates/\">the overview</a>."]
+
+# do not add response envelope fields, they're automatically included
+response:
+    - [
+        results,
+        collection,
+        [
+            [toEmail, string, "The recipient's email address."],
+            [messageId, guid, "The unique message-id assigned to the message."],
+            [messageStatus, int, "The API status code associated with the message."]
+        ]
+    ]
+
+status:
+    fields: [statusCode, statusMessage]
+    values:
+        - [202, "Messages accepted; delivery pending."]
+        - [207, "Not all messages were accepted; see messageStatus for more details."]
+        - [400, "One or more parameters were invalid."]
+        - [401, "Unauthorized; missing or invalid API key."]
+        - [406, "Not acceptable; use application/json; charset=utf-8."]
+        - [413, "Request too large; send <= 100 messages per batch."]
+        - [415, "Request unparsable; check POST JSON."]
+        - [422, "Request rejected; could not send message to recipient."]
+# -----------------------------
+---
+
+<!--
+    Summary/Synopsis of the API. This will be inserted below the title block and the request/response blocks.
+    Must be valid HTML.
+-->
+<p>
+    Sends up to 25 messages at a time using the specified message template and merge data.
+</p>
+
+{% include apiBlockParam.html title="Request"  source=page.request optional=page.optional type="hasContent" %}
+{% include apiBlockParam.html title="Response" source=page.response %}
+{% include statusBlockParam.html source=page.status %}
+
+<!--
+    The first two are required for every API, optionally show as many error cases as are instructive.
+-->
+<h3 class="text-info">Usage</h3>
+<span class="label label-primary">Request</span>
+{% gist messagebus/d9cef97d2dc45bb39187 %}
+
+<span class="label label-success">Success</span>
+{% gist messagebus/27224fd849ff1cf573d7 %}
+
+<span class="label label-warning">Mixed Results</span>
+{% gist messagebus/6759e49138cc6aa56ecd %}
+
+<!--
+    Set sample == true in the frontmatter if you add sample code. Add as many as you like, but to keep pages consistent
+    do ALL your work in the Gist.
+-->
+{% if page.sample %}
+<h3 class="text-info">Examples</h3>
+{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
+{% endif %}

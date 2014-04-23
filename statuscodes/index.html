@@ -11,10 +11,10 @@ api:
     values:
         - [0, Success, "The API call succeeded completely and without error."]
         - [1001, General Failure, "An error occurred but no extended information is available."]
-        - [1002, Message Validation, Missing or invalid <code>To</code> address.]
-        - [1003, Message Validation, Missing or invalid <code>From</code> address.]
-        - [1004, Message Validation, Missing <code>Subject</code> header.]
-        - [1005, Message Validation, Missing or invalid <code>Return-Path</code> address.]
+        - [1002, Message Validation, Missing or invalid <code>toEmail</code>.]
+        - [1003, Message Validation, Missing or invalid <code>fromEmail</code>.]
+        - [1004, Message Validation, Missing <code>subject</code>.]
+        - [1005, Message Validation, Missing or invalid <code>returnPath</code>.]
         - [1006, Message Validation, Missing or invalid <code>Message-Id</code> header.]
 
 bounce:
@@ -73,21 +73,6 @@ block:
 </script>
 
 <h2>{{ page.title }}</h2>
-<h3 class="text-info">Envelope vs. Payload</h3>
-<p>
-    Responses in the REST API contain an envelope and a payload. The envelope indicates success or failure
-    of the call as well as providing metadata about the payload, if any. When the payload contains a collection, items
-    within the collection may have their own status codes. As an example, consider the response sent by the Send Message
-    API.
-</p>
-<p>
-    <code>statusCode</code> is part of the envelope and is the HTTP status code for the call. HTTP status codes are
-    documented alongside each API. <code>messageStatus</code> refers to the status of a particular message - in this
-    case <code>0</code> means the API accepted the message for delivery. If, for example, the <code>Subject</code>
-    header was missing, it would have been <code>1004</code>.
-</p>
-{% gist messagebus/1cd3c1ffafc385778845 %}
-
 
 <h3 id="api" class="text-info">API Status Codes</h3>
 <p>

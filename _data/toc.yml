@@ -9,11 +9,22 @@
     - [send, "Send Messages"]
 
 -
+  name: Template API
+  sections:
+    - [templates,        "Templates 101"]
+    - [templates/list,   "List Templates"]
+    - [templates/get,    "Get Template"]
+    - [templates/post,   "Create Template"]
+    - [templates/put,    "Update Template"]
+    - [templates/delete, "Delete Template"]
+    - [templates/send,   "Send Template"]
+
+-
   name: Webhooks
   sections:
     - [webhooks,        "Webhooks 101"]
     - [webhooks/list,   "List Webhooks"]
-    - [webhooks/get,    "Get a Webhook"]
+    - [webhooks/get,    "Get Webhook"]
     - [webhooks/post,   "Create Webhook"]
     - [webhooks/put,    "Update Webhook"]
     - [webhooks/delete, "Delete Webhook"]

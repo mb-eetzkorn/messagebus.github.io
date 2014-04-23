@@ -3,7 +3,7 @@ destination: ./_site
 plugins:     ./_plugins
 layouts:     ./_layouts
 
-exclude: [templates, Gemfile.lock, Gemfile, scratch, README.md]
+exclude: [_internal, Gemfile.lock, Gemfile, scratch, README.md]
 
 safe: true
 lsi: false

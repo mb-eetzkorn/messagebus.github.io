@@ -2,31 +2,22 @@
 layout: api
 
 # ----- API DOCUMENTATION -----
-title: Create Webhook
-method: POST
-path: webhooks
+title: Delete Template
+method: DELETE
+path: template/:templateKey
 
 sample: false
 
-optional: [enabled, channelKey]
-
-request:
-    - [enabled, bool, "Turns the webhook on or off. Optional, true by default."]
-    - [uri, string, "The customer-supplied HTTP endpoint the Webhook Service will POST to."]
-    - [eventType, string, "The event to send to this webhook."]
-    - [channelKey, guid, "Restrict operation to a single channel. Optional, defaults to the account."]
-
 # do not add response envelope fields, they're automatically included
 response:
-    - [webhookKey, guid, "Unique-Id for the new webhook."]
+    - []
 
 status:
     fields: [statusCode, statusMessage]
     values:
-        - [201, "Webhook created."]
-        - [400, "One or more parameters were invalid."]
+        - [200, "Ok"]
         - [401, "Unauthorized; missing or invalid API key."]
-        - [403, "Unauthorized; insufficient permission."]
+        - [404, "Request failed; template key does not exist."]
 # -----------------------------
 ---
 
@@ -35,10 +26,11 @@ status:
     Must be valid HTML.
 -->
 <p>
-    Create a webhook for a specific event and attach it to a specific channel or the entire account.
+    Delete the specified template. It can take up to 5 minutes for the template caches to clear, just in case you
+    need to verify the template was deleted.
 </p>
 
-{% include apiBlockParam.html title="Request"  source=page.request optional=page.optional type="hasContent" %}
+{% include apiBlockParam.html title="Request"  source=page.request type="noContent" %}
 {% include apiBlockParam.html title="Response" source=page.response %}
 {% include statusBlockParam.html source=page.status %}
 
@@ -47,10 +39,10 @@ status:
 -->
 <h3 class="text-info">Usage</h3>
 <span class="label label-primary">Request</span>
-{% gist messagebus/c5795a3d32bf09e23d85 %}
+{% gist messagebus/4a83e4175c9c143d0c06 %}
 
 <span class="label label-success">Response</span>
-{% gist messagebus/dfe4a3173579c1c1736c %}
+{% gist messagebus/ed040e1fb6c4f96f3756 %}
 
 <!--
     Set sample == true in the frontmatter if you add sample code. Add as many as you like, but to keep pages consistent

@@ -1,30 +1,57 @@
--
-  name: General
-  sections:
-    - [statuscodes, "Status & Error Codes"]
+todo:
+    - ["",                  "Read This First (incomplete)"]
+    - [general/overview,    "Overview (incomplete)"]
 
--
-  name: Messaging API
-  sections:
-    - [send, "Send Messages"]
+intro:
+  title: Introduction
+  chapters:
 
--
-  name: Template API
-  sections:
-    - [templates,        "Templates 101"]
-    - [templates/list,   "List Templates"]
-    - [templates/get,    "Get Template"]
-    - [templates/post,   "Create Template"]
-    - [templates/put,    "Update Template"]
-    - [templates/delete, "Delete Template"]
-    - [templates/send,   "Send Template"]
+    - [channels,            "Channels 101"]
+    - [templates,           "Templates 101"]
+    - [webhooks,            "Webhooks 101"]
+    - [general/statuscodes, "Status & Error Codes"]
 
--
-  name: Webhooks
-  sections:
-    - [webhooks,        "Webhooks 101"]
-    - [webhooks/list,   "List Webhooks"]
-    - [webhooks/get,    "Get Webhook"]
-    - [webhooks/post,   "Create Webhook"]
-    - [webhooks/put,    "Update Webhook"]
-    - [webhooks/delete, "Delete Webhook"]
+api:
+  title: API Reference
+  chapters:
+    - [
+        Channels,
+        [
+          [channels/list,          "List Channels"],
+          [channels/get,           "Get Channel"],
+          [channels/put,           "Configure Channel"],
+          [channels/sessions/list, "List Sessions"],
+          [channels/sessions/post, "Create Session"],
+          [channels/sessions/put,  "Modify Session"]
+        ]
+    ]
+
+    - [
+        Messaging,
+        [
+          [send,           "Send Messages"],
+          [templates/send, "Send Template"]
+        ]
+    ]
+
+    - [
+        Templates,
+        [
+          [templates/list,   "List Templates"],
+          [templates/get,    "Get Template"],
+          [templates/post,   "Create Template"],
+          [templates/put,    "Modify Template"],
+          [templates/delete, "Delete Template"]
+        ]
+    ]
+
+    - [
+        Webhooks,
+        [
+          [webhooks/list,   "List Webhooks"],
+          [webhooks/get,    "Get Webhook"],
+          [webhooks/post,   "Create Webhook"],
+          [webhooks/put,    "Configure Webhook"],
+          [webhooks/delete, "Delete Webhook"]
+        ]
+    ]

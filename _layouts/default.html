@@ -11,25 +11,47 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2">
-            {% for chapter in site.data.toc %}
+                <div data-spy="affix">
 
-                <h3 class="subhead">{{ chapter.name }}</h3>
-                <ul class="list-unstyled">
-                    {% for section in chapter.sections %}
-                    <li>
-                        <a {% if page.title == section[1] %} class="active-section" {% endif %} href="/{{ section[0] }}">{{ section[1] }}</a>
-                        {% if page.tocSubheads and page.title == section[1] %}
-                        <ul class="toc-subhead">
-                            {% for subhead in page.tocSubheads %}
-                            <li><small><a class="text-warning" href="#{{ subhead[0] }}">&raquo; {{ subhead[1] }}</a></small></li>
+                    {% assign intro = site.data.toc.intro %}
+                    {% assign api   = site.data.toc.api %}
+
+                    <h3>{{ intro.title }}</h3>
+                    <ul class="list-unstyled">
+                        {% for chapter in intro.chapters %}
+                        <li>
+                            <a {% if page.title == chapter[1] %} class="active-section" {% endif %} href="{{ site.data.paths.docs }}/{{ chapter[0] }}">{{ chapter[1] }}</a>
+                            {% if page.tocSubheads and page.title == chapter[1] %}
+                            <ul class="toc-subhead">
+                                {% for subhead in page.tocSubheads %}
+                                <li><small><a class="text-warning" href="#{{ subhead[0] }}">&raquo; {{ subhead[1] }}</a></small></li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    <h3>{{ api.title }}</h3>
+                    {% for chapter in api.chapters %}
+                        <h3 class="toc-subhead">{{ chapter[0] }}</h3>
+                        <ul class="list-unstyled">
+                            {% for section in chapter[1] %}
+                            <li>
+                                <a {% if page.title == section[1] %} class="active-section" {% endif %} href="{{ site.data.paths.docs }}/{{ section[0] }}">{{ section[1] }}</a>
+                                {% if page.tocSubheads and page.title == section[1] %}
+                                <ul class="toc-subhead">
+                                    {% for subhead in page.tocSubheads %}
+                                    <li><small><a class="text-warning" href="#{{ subhead[0] }}">&raquo; {{ subhead[1] }}</a></small></li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </li>
                             {% endfor %}
                         </ul>
-                        {% endif %}
-                    </li>
                     {% endfor %}
-                </ul>
 
-            {% endfor %}
+                </div>
             </div>
             <div class="col-md-10">
                 {{ content }}

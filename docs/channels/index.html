@@ -1,0 +1,129 @@
+---
+layout: default
+title: Channels 101
+lead: "Use Channels & Sessions to separate and track different types of mail."
+
+tocSubheads:
+    - [background, "Background"]
+    - [channels,   "Using Channels"]
+    - [sessions,   "Using Sessions"]
+
+typedSessions:
+    fields: [Channel, Session, Domain, IP Address]
+    values:
+        - [Notifications, Alert, domain.com, 192.168.0.1-192.168.0.2]
+        - ["", Signup,                domain.com, 192.168.0.1-192.168.0.2]
+        - ["", Password Reset,        domain.com, 192.168.0.1-192.168.0.2]
+        - ["", Past Due Notice,       domain.com, 192.168.0.1-192.168.0.2]
+        - ["", Purchase Confirmation, domain.com, 192.168.0.1-192.168.0.2]
+
+namedChannels:
+    fields: [Channel, Session, Domain, IP Address]
+    values:
+        - [Alerts,                <code>DEFAULT</code>, alerts.domain.com,   192.168.0.1-192.168.0.2]
+        - [Signup,                <code>DEFAULT</code>, accounts.domain.com, 192.168.0.3-192.168.0.4]
+        - [Password Reset,        <code>DEFAULT</code>, accounts.domain.com, 192.168.0.3-192.168.0.4]
+        - [Past Due Notice,       <code>DEFAULT</code>, store.domain.com,    192.168.0.5-192.168.0.6]
+        - [Purchase Confirmation, <code>DEFAULT</code>, store.domain.com,    192.168.0.5-192.168.0.6]
+---
+
+<div class="page-header">
+    <h1>{{ page.title }}</h1>
+</div>
+<p class="lead">
+    {{ page.lead }}
+</p>
+
+<h3 class="text-info"><a id="{{ page.tocSubheads[0][0] }}">{{ page.tocSubheads[0][1] }}</a></h3>
+<p class="subhead">The Problem</p>
+<p>
+    Channels were designed to solve what's known in email circles as the "mixed content" and "mixed sender" problems,
+    which refer to the practices of sending widely different types of email or using multiple <code>From:</code> domains
+    over the same IP address.
+</p>
+
+<p>
+    ISPs use spam filters, blacklists, user engagement, sending volumes, and other techniques to determine the safety
+    and predictability of the email coming from a given IP or domain. Collectively, this is called <em>reputation</em>
+    and it determines a sender's ability to deliver email and reach the inbox.
+</p>
+
+<p>
+    The mixed content/sender scenarios make it difficult for these defensive systems to assign reputation because
+    there's no single identity, message type, or pattern of user engagement to hang a reputation verdict on. Thus, it
+    is crucial to separate high-performing mail streams from those with variable or poor performance.
+</p>
+
+<p class="subhead">The Solution</p>
+<p>
+    Channels achieve this isolation by sending messages from a <strong>single domain</strong>, using <strong>dedicated
+    IP addresses</strong>, and independently <strong>tracking all stats and feedback</strong> like sent messages,
+    bounces, opens, and more. Recipients that opt-out (e.g. by unsubscribing or filing a spam complaint) are
+    automatically suppressed, as are known-bad addresses such as hard bounces.
+</p>
+
+<h3 class="text-info"><a id="{{ page.tocSubheads[1][0] }}">{{ page.tocSubheads[1][1] }}</a></h3>
+<p class="subhead">Message Types</p>
+<p>
+    To keep things simple, {{ site.data.company.name }} categorizes message content as either <strong>transactional</strong>
+    or <strong>non-transactional</strong>. In our experience this is the most meaningful distinction in terms of
+    delivery, placement, metrics, and manageability. The key difference is the response expected of the recipient.
+</p>
+
+<ul class="body-list">
+    <li>
+        <strong>Transactional Messages</strong> are typically direct responses to user input. Password resets,
+        purchase confirmations, alerts, and activity notifications, are common examples.
+    </li>
+    <li>
+        <strong>Non-Transactional Messages</strong> can be triggered (e.g. drip campaigns) or scheduled (e.g. promotional
+        or limited-time offers) and typically contain an inducement or other call to action. Another name is
+        <em>marketing mail</em>.
+    </li>
+</ul>
+
+<div class="alert alert-info">
+    <strong>Note:</strong> the current release (as of May 2014) supports the Transactional channel type. We're
+    will add support for Non-Transactional Channels in Summer 2014. Please contact us if you're interested in
+    getting into the pre-release program.
+</div>
+
+<p>
+    Transactional and non-transactional channels have different configurations and, in the dashboard, display different
+    types of metrics and graphs. Channels also have a trick up their sleeve - Sessions.
+</p>
+
+<h3 class="text-info"><a id="{{ page.tocSubheads[2][0] }}">{{ page.tocSubheads[2][1] }}</a></h3>
+<p>
+    Sessions organize the traffic on a channel and individually track their own stats & feedback, so when you're
+    looking at your messaging data you can see aggregates at the channel level and drill-in to each session, no work
+    required on your end.
+</p>
+<p>
+    Sessions can represent whatever you want: various types of notifications, specific customers, or periods of time.
+    You create them as needed and, like channels, can name them so they're easy to spot in the dashboard.
+</p>
+
+<h3 class="text-info">Examples</h3>
+<p>
+    If your system sends 5 different kinds of transactional notifications, what's the best way to keep track of them? Do
+    you need to create 5 channels? Not necessarily, consider the following options.
+</p>
+<p>
+    One approach is to use a single channel and assign each type of notification to a <em>Session</em> within the
+    channel. If you keep adding notifications, you just create more sessions. An advantage to this approach is
+    the ability to see overall transactional performance with channel-level stats.
+</p>
+{% include statusBlockParam.html source=page.typedSessions width=70 %}
+
+<p>
+    Another approach is to create a channel for each type of notification. There are no limits to the number of
+    channels you can create, but there is a little inconvenience. Because channels use dedicated IPs, we do not allow
+    customers to create them, you must contact us to do it for you.
+</p>
+<p>
+    Since the content is all transactional (and so the user engagement patterns will be similar), we can configure each
+    of your notification channels to use the same or dedicated IPs. One advantage to using separate channels is that
+    you can send on separate domains, such as alerts.domain.com, billing.domain.com, and so on.
+</p>
+{% include statusBlockParam.html source=page.namedChannels width=70 %}

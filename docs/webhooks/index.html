@@ -119,8 +119,11 @@ unsub:
         - [ device, string, "Type of device the messages was opened on (e.g. tablet, mobile, etc.)"]
 ---
 
-<br/>
-<div class="well well-lg">
+<div class="page-header">
+    <h1>{{ page.title }}</h1>
+</div>
+
+<div class="well well-lg" style="margin-top: 2em;">
     <h3 class="text-danger">Breaking Change Notification</h3>
     <p>
         <strong>Note:</strong> On May 20 2014 the following changes to event names & payload will go into production and this
@@ -130,8 +133,6 @@ unsub:
     {% include statusBlockParam.html source=page.webhook_bc %}
 </div>
 
-
-<h2>Overview</h2>
 <p>
     A webhook is an HTTP endpoint you publish that Message Bus POSTs events to when they occur. Your data comes to you,
     instead of you needing to fetch it. The performance requirements for your webhook server depends entirely on how
@@ -176,7 +177,7 @@ unsub:
 <p>
     Generated when a message is successfully delivered to the recipient domain. This does not mean that the recipient
     has gotten the message - after delivery, you receive a <code>{{ page.tocSubheads[2][1] }}</code> event indicating a
-    <a href="/docs/statuscodes/#bounces">soft bounce</a> has occurred.
+    <a href="/docs/general/statuscodes/#bounces">soft bounce</a> has occurred.
 </p>
 {% include statusBlockParam.html source=page.accept %}
 
@@ -203,7 +204,7 @@ unsub:
     </li>
 </ol>
 <p>
-    Use the <a href="/docs/statuscodes/#bounces">bounce subcode list</a> to determine the bounce's exact cause.
+    Use the <a href="/docs/general/statuscodes/#bounces">bounce subcode list</a> to determine the bounce's exact cause.
 </p>
 {% include statusBlockParam.html source=page.bounce %}
 

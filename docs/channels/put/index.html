@@ -1,0 +1,66 @@
+---
+layout: api
+
+# ----- API DOCUMENTATION -----
+title: Configure Channel
+method: PUT
+path: channel/:channelKey
+
+sample: false
+
+request:
+    - [channelName, string, "The channel's friendly name."]
+    - [defaultSessionKey, guid, "Unique ID of the channel's default session."]
+    - [isDefault, bool, "If true, this is the account's default channel."]
+    - [addUnsubscribe, bool, "Inject an unsubscribe URL & <code>List-Unsubscribe</code> header."]
+    - [unsubscribeCustomDomain, string, "Custom domain for the unsubscribe URL."]
+    - [addOpenRate, bool, "Enable open tracking."]
+    - [openRateCustomDomain, string, "Custom domain for the open tracking URL."]
+    - [addClickDetection, bool, "Enable link tracking."]
+    - [clickDetectionCustomDomain, string, "Custom domain for tracked links."]
+    - [exceptionList, collection, "List of addresses/wildcards that cannot be blocked."]
+
+# do not add response envelope fields, they're automatically included
+response:
+    - []
+
+status:
+    fields: [statusCode, statusMessage]
+    values:
+        - [200, "Ok"]
+        - [400, "One or more parameters were invalid."]
+        - [401, "Unauthorized; missing or invalid API key."]
+        - [404, "Request failed; channel does not exist."]
+# -----------------------------
+---
+
+<!--
+    Summary/Synopsis of the API. This will be inserted below the title block and the request/response blocks.
+    Must be valid HTML.
+-->
+<p>
+    Sets configuration values. Only modifies fields present in the request body.
+</p>
+
+{% include apiBlockParam.html title="Request"  source=page.request type="hasContent" %}
+{% include apiBlockParam.html title="Response" source=page.response %}
+{% include statusBlockParam.html source=page.status %}
+
+<!--
+    The first two are required for every API, optionally show as many error cases as are instructive.
+-->
+<h3 class="text-info">Usage</h3>
+<span class="label label-primary">Request</span>
+{% gist messagebus/6a36aefe96b3fa587516 %}
+
+<span class="label label-success">Response</span>
+{% gist messagebus/c6377b6e15c3215853bb %}
+
+<!--
+    Set sample == true in the frontmatter if you add sample code. Add as many as you like, but to keep pages consistent
+    do ALL your work in the Gist.
+-->
+{% if page.sample %}
+<h3 class="text-info">Examples</h3>
+{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
+{% endif %}

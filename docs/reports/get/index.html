@@ -7,7 +7,7 @@ method: GET
 path: report/:reportKey
 
 tocSubheads:
-    - [common, "Common Fields"]
+    - [stats, "Statistics"]
     - [bounce, "Bounces"]
     - [complaint, "Complaints"]
     - [unsub, "Unsubscribes"]
@@ -20,42 +20,23 @@ tocSubheads:
 sample: false
 
 stats:
-    - [channelKey, guid, "The channel associated with this report, if one was specified."]
-    - [sessionKey, guid, "The session associated with this report, if one was specified."]
-    - [
-        stats,
-        object,
-        [
-            [complaintCount,   int, "Number of events received."],
-            [unsubscribeCount, int, "Number of events received."],
-            [clickCount,       int, "Number of events received."],
-            [openCount,        int, "Number of events received."],
-            [uniqueClickCount, int, "Number of events received."],
-            [uniqueOpenCount,  int, "Number of events received."]
-        ]
-    ]
-
-    - [
-        email,
-        object,
-        [
-            [messageCount,    int, "Number of messages created."],
-            [errorCount,      int, "Number of messages that failed creation."],
-            [sentCount,       int, "Messages successfully delivered."],
-            [expireCount,     int, "Messages expired after several delivery attempts."],
-            [hardBounceCount, int, "Messages rejected by the recipient domain."],
-            [softBounceCount, int, "Messages rejected <em>after</em> delivery."]
-        ]
-    ]
-
-    - [
-        filter,
-        object,
-        [
-            [rcptBadMailboxCount,   int, "Messages rejected because they're addressed to known-bad mailboxes."],
-            [rcptChannelBlockCount, int, "Messages to recipients suppressed at the channel level."]
-        ]
-    ]
+    - [sendHour,   datetime, "The hour in which the stats were collected."]
+    - [channelKey, guid,     "The channel associated with this report, if one was specified."]
+    - [sessionKey, guid,     "The session associated with this report, if one was specified."]
+    - [complaintCount,   int, "Number of events received."]
+    - [unsubscribeCount, int, "Number of events received."]
+    - [clickCount,       int, "Number of events received."]
+    - [openCount,        int, "Number of events received."]
+    - [uniqueClickCount, int, "Number of events received."]
+    - [uniqueOpenCount,  int, "Number of events received."]
+    - [messageCount,    int, "Number of messages created."]
+    - [errorCount,      int, "Number of messages that failed creation."]
+    - [sentCount,       int, "Messages successfully delivered."]
+    - [expireCount,     int, "Messages expired after several delivery attempts."]
+    - [hardBounceCount, int, "Messages rejected by the recipient domain."]
+    - [softBounceCount, int, "Messages rejected <em>after</em> delivery."]
+    - [rcptBadMailboxCount,   int, "Messages rejected because they're addressed to known-bad mailboxes."]
+    - [rcptChannelBlockCount, int, "Messages to recipients suppressed at the channel level."]
 
 feedback:
     - [
@@ -157,7 +138,7 @@ status:
 </p>
 {% include statusBlockParam.html source=page.status %}
 
-<h3 class="text-info">Statistical Reports</h3>
+<h3 class="text-info"><a id="stats">Statistical Reports</a></h3>
 <p>
     Statistical reports present aggregate data, summed across the entire account (default) or a specific channel or
     session.

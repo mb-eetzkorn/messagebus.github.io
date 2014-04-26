@@ -1,0 +1,236 @@
+---
+layout: api
+
+# ----- API DOCUMENTATION -----
+title: Get Report
+method: GET
+path: report/:reportKey
+
+tocSubheads:
+    - [common, "Common Fields"]
+    - [bounce, "Bounces"]
+    - [complaint, "Complaints"]
+    - [unsub, "Unsubscribes"]
+    - [open, "Opens"]
+    - [click, "Clicks"]
+    - [block, "Blocks"]
+    - [blocklist, "Blocklist"]
+
+
+sample: false
+
+stats:
+    - [channelKey, guid, "The channel associated with this report, if one was specified."]
+    - [sessionKey, guid, "The session associated with this report, if one was specified."]
+    - [
+        stats,
+        object,
+        [
+            [complaintCount,   int, "Number of events received."],
+            [unsubscribeCount, int, "Number of events received."],
+            [clickCount,       int, "Number of events received."],
+            [openCount,        int, "Number of events received."],
+            [uniqueClickCount, int, "Number of events received."],
+            [uniqueOpenCount,  int, "Number of events received."]
+        ]
+    ]
+
+    - [
+        email,
+        object,
+        [
+            [messageCount,    int, "Number of messages created."],
+            [errorCount,      int, "Number of messages that failed creation."],
+            [sentCount,       int, "Messages successfully delivered."],
+            [expireCount,     int, "Messages expired after several delivery attempts."],
+            [hardBounceCount, int, "Messages rejected by the recipient domain."],
+            [softBounceCount, int, "Messages rejected <em>after</em> delivery."]
+        ]
+    ]
+
+    - [
+        filter,
+        object,
+        [
+            [rcptBadMailboxCount,   int, "Messages rejected because they're addressed to known-bad mailboxes."],
+            [rcptChannelBlockCount, int, "Messages to recipients suppressed at the channel level."]
+        ]
+    ]
+
+feedback:
+    - [
+        common,
+        "The following fields are present in all <code>feedback</code> report types.",
+        [
+            [type,       string, "The type of feedback report requested."],
+            [channelKey, guid,   "The channel associated with this report, if one was specified."],
+            [sessionKey, guid,   "The session associated with this report, if one was specified."],
+            [messageId,  guid,     "The <code>Message-Id</code> header from the original message."],
+            [email,      string,   "The recipient email address."],
+            [eventTime,  datetime, "Time the event was recorded."],
+            [sendTime,   datetime, "Time the original message was sent."]
+        ]
+    ]
+
+    - [
+        bounce,
+        "Retuns a list of bounced <code>Message-IDs</code> & email addresses. Bounces are assigned a <code>bounceCode</code> that
+         specifies the exact reason a message bounced.",
+        [
+            [bounceCode, int, "The <a href=\"/docs/general/statuscodes/#bounces\">bounce classification code</a>."]
+        ]
+    ]
+
+    - [
+        complaint,
+        "Returns a list of <code>Message-IDs</code> & email addresses associated with spam complaint reports. Future
+         messages to these email addresses over the specified channel will be suppressed.",
+        [ "empty" ]
+    ]
+
+    - [
+        unsub,
+        "Returns a list of email addresses that have unsubscribed from the specified channel. Future messages to these
+         email addresses sent over the channel will be suppressed, but messages sent on other channels will not.",
+        [ "empty" ]
+    ]
+
+    - [
+        open,
+        "Returns a list of <code>Message-IDs</code> that were opened and the email addresses the messages were delivered
+         to.",
+        [ "empty" ]
+    ]
+
+    - [
+        click,
+        "Returns information about links that were clicked by a message recipient. The <code>mbTrackingId</code> is
+         added to the end of a URL by the sender to instruct Message Bus to track the link.",
+        [
+            [trackingId, string, "Value of the link's <code>mbTrackingId</code> parameter."]
+        ]
+    ]
+
+    - [
+        block,
+        "Returns information about email addresses that Message Bus suppressed on your behalf, because they are known
+         bad addresses (e.g. hard bounces) or they have opted-out of traffic from one or more of your channels. The
+         <code>blockCode</code> indicates the reason.",
+        [
+            [blockCode, int, "<a href=\"/docs/general/statuscodes/#blocks\">Block classification code</a>."]
+        ]
+    ]
+
+    - [
+        blocklist,
+        "Returns the list of blocked addresses tracked in your account, as well as the reason why they were blocked.",
+        [
+            [reason, string, "The reason the address was added to the blocklist (e.g. complaint, unsub, etc.)"]
+        ]
+    ]
+
+status:
+    fields: [statusCode, statusMessage]
+    values:
+        - [200, "Ok"]
+        - [204, "No content."]
+        - [401, "Unauthorized; missing or invalid API key."]
+        - [404, "Request failed; invalid report key."]
+# -----------------------------
+---
+
+<!--
+    Summary/Synopsis of the API. This will be inserted below the title block and the request/response blocks.
+    Must be valid HTML.
+-->
+<p>
+    Fetch a previously-created report identifed by the <code>reportKey</code>.
+</p>
+
+{% include apiBlockParam.html title="Request"  source=page.request type="noContent" %}
+
+<h3 class="text-info">Response</h3>
+<p>
+    Success codes <code>200</code> and <code>204</code> indicate the report completed contains data or is empty,
+    respectively. The standard response envelope (<code>statusCode</code>, <code>statusMessage</code>, etc.) is
+    returned only when errors occur.
+</p>
+{% include statusBlockParam.html source=page.status %}
+
+<h3 class="text-info">Statistical Reports</h3>
+<p>
+    Statistical reports present aggregate data, summed across the entire account (default) or a specific channel or
+    session.
+</p>
+{% include apiBlockParam.html source=page.stats %}
+
+
+
+<h3 class="text-info">Feedback Reports</h3>
+<p>
+    Feedback reports return lists of email addresses and other metadata associated with a specific event, the report type
+    is named after the event.
+</p>
+<p class="subhead">Data Formats</p>
+<p>
+    Because we don't know how large any given report is going to be, we stream them back formatted either as
+    individual lines of JSON-formatted data or Comma Separated Values (CSV).
+</p>
+<p>
+    Newline-delimited JSON saves you the overhead of loading a single giant object into memory for parsing, and instead
+    allows you to parse and process individual lines. If you don't want to handle this yourself, the SDKs take care of
+    it for you.
+</p>
+<pre>
+{ ... }\n
+{ ... }\n
+{ ... }\n
+</pre>
+
+<p>
+    Modern CSV parsers can accept a stream handle as input, and downloaded CSV files are easy to manipulate in Excel,
+    Numbers, etc. The first line contains the column labels and subsequent lines contain data, which can be sparsely
+    populated.
+</p>
+<pre>
+LABEL1, LABEL2, LABEL3, ...\r\n
+DATA1,  DATA2,  DATA3,  ...\r\n
+</pre>
+
+{% for item in page.feedback %}
+    {% assign params = item[2] %}
+    <p class="subhead"><a id="{{ item[0] }}">{{ item[0] | capitalize }} {% unless forloop.first %} Report {% endunless %}</a></p>
+    <p>
+        {{ item[1] }}
+    </p>
+    {% if params[0] != "empty" %}
+        {% include apiBlockParam.html source=params %}
+    {% else %}
+        <div class="alert alert-warning">
+            <strong>Note:</strong> The <code>{{ item[0] }}</code> report type has no payload other than the common fields.
+        </div>
+    {% endif %}
+{% endfor %}
+
+<!--
+    The first two are required for every API, optionally show as many error cases as are instructive.
+-->
+<h3 class="text-info">Usage</h3>
+<span class="label label-primary">Request</span>
+{% gist messagebus/ae7417a0f47fe5e5b46e %}
+
+<span class="label label-success">Stats CSV Example</span>
+{% gist messagebus/9a1d370c5d955fd39053 %}
+
+<span class="label label-success">Feedback JSON Example</span>
+{% gist messagebus/bcc4f331d445a589e9d2 %}
+
+
+<!--
+    Set sample == true in the frontmatter if you add sample code. Add as many as you like, but to keep pages consistent
+    do ALL your work in the Gist.
+-->
+{% if page.sample %}
+<h3 class="text-info">Examples</h3>
+{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
+{% endif %}

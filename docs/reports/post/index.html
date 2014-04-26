@@ -1,0 +1,70 @@
+---
+layout: api
+
+# ----- API DOCUMENTATION -----
+title: Create Report
+method: POST
+path: reports
+
+sample: false
+
+optional: [format, channelKey, sessionKey, scope, startDate, endDate]
+
+request:
+    - [reportType, string,   "Type of report. Valid values: <code>stats</code>, <code>feedback</code>, <code>blocklist</code>."]
+    - [format,     string,   "Report format. Valid values: Newline-delimited <code>JSON</code> or <code>CSV</code>. Default is <code>JSON</code>."]
+    - [channelKey, guid,     "Limit report to a specific channel. Default is account."]
+    - [sessionKey, guid,     "Limit report to a specific session."]
+    - [scope,      string,   "Type of <code>feedback</code> report to generate. Valid values: <code>bounces</code>, <code>unsubscribes</code>, <code>complaints</code>, <code>clicks</code>, <code>opens</code>, or <code>blocks</code>. Default is <code>bounces</code>."]
+    - [startDate,  datetime, "The timestamp to start querying data, up to 7 days ago. Default: 24 hours ago."]
+    - [endDate,    datetime, "The timestamp to end querying data. Default: now."]
+
+# do not add response envelope fields, they're automatically included
+response:
+    - [reportKey, guid, "The report job's unique ID."]
+    - [reportStatus, string, "State of the report job."]
+    - [reportQuota, int, "The number of reports you are allowed to run in a single day."]
+    - [reportQuotaRemaining, int, "The remaining number of reports you can run today."]
+
+status:
+    fields: [statusCode, statusMessage]
+    values:
+        - [201, "Report request received."]
+        - [400, "One or more parameters were invalid."]
+        - [401, "Unauthorized; missing or invalid API key."]
+        - [402, "Quota exceeded; try again later."]
+        - [406, "Not acceptable; use application/json; charset=utf-8."]
+        - [415, "Request unparsable; check POST JSON."]
+# -----------------------------
+---
+
+<!--
+    Summary/Synopsis of the API. This will be inserted below the title block and the request/response blocks.
+    Must be valid HTML.
+-->
+<p>
+    Creates a batch report using the specified parameters and returns a <code>reportKey</code> you can check later on.
+</p>
+
+{% include apiBlockParam.html title="Request"  source=page.request optional=page.optional type="hasContent" %}
+{% include apiBlockParam.html title="Response" source=page.response %}
+{% include statusBlockParam.html source=page.status %}
+
+<!--
+    The first two are required for every API, optionally show as many error cases as are instructive.
+-->
+<h3 class="text-info">Usage</h3>
+<span class="label label-primary">Request</span>
+{% gist messagebus/3aa46a37a00904b1f586 %}
+
+<span class="label label-success">Response</span>
+{% gist messagebus/fba79d542044335a4dcf %}
+
+<!--
+    Set sample == true in the frontmatter if you add sample code. Add as many as you like, but to keep pages consistent
+    do ALL your work in the Gist.
+-->
+{% if page.sample %}
+<h3 class="text-info">Examples</h3>
+{% gist messagebus/eef6f65c4d607a2dcb61#file-gistfile1-txt %}
+{% endif %}

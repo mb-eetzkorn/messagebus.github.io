@@ -1,14 +1,14 @@
 todo:
-    - ["",                  "Read This First (incomplete)"]
-    - [general/overview,    "Overview (incomplete)"]
+  - ["",                  "Read This First (incomplete)"]
+  - [general/overview,    "Overview (incomplete)"]
 
 intro:
   title: Introduction
   chapters:
-
     - [channels,            "Channels 101"]
     - [templates,           "Templates 101"]
     - [webhooks,            "Webhooks 101"]
+    - [reports,             "Reports 101"]
     - [general/statuscodes, "Status & Error Codes"]
 
 api:
@@ -53,5 +53,14 @@ api:
           [webhooks/post,   "Create Webhook"],
           [webhooks/put,    "Configure Webhook"],
           [webhooks/delete, "Delete Webhook"]
+        ]
+    ]
+
+    - [
+        Reports,
+        [
+          [reports/post,   "Create Report"],
+          [reports/status, "Check Report Status"],
+          [reports/get,    "Get Report"]
         ]
     ]

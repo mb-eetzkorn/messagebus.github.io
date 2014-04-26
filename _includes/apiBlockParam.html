@@ -69,10 +69,10 @@ Usage:
     {% endfor %}
 
     <tr>
-        {% if param[1] == 'collection' %}
+        {% if param[1] == 'collection' or param[1] == 'object' %}
         <td class="field-name">
             {{ param[0] }}
-            {% if optional_outer_param == true %}<span class="label label-default">Optional</span>{% endif %}
+            {% if optional_outer_param == true %}<span class="label label-default pull-right">Optional</span>{% endif %}
         </td>
         <td>{{ param[1] }}</td>
         <td>
@@ -90,7 +90,7 @@ Usage:
                     {% for item in param %}
                         <td {% if forloop.first %} class="field-name" style="width: 25%;" {% endif %}>
                             {{ item }}
-                            {% if forloop.first and optional_inner_param == true %}<span class="label label-default">Optional</span>{% endif %}
+                            {% if forloop.first and optional_inner_param == true %}<span class="label label-default pull-right">Optional</span>{% endif %}
                         </td>
                     {% endfor %}
                 </tr>
@@ -101,7 +101,7 @@ Usage:
             {% for item in param %}
             <td {% if forloop.first %} class="field-name" {% endif %}>
                 {{ item }}
-                {% if forloop.first and optional_outer_param == true %}<span class="label label-default">Optional</span>{% endif %}
+                {% if forloop.first and optional_outer_param == true %}<span class="label label-default pull-right">Optional</span>{% endif %}
             </td>
             {% endfor %}
         {% endif %}

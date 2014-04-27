@@ -11,4 +11,5 @@ export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
 sudo -E gem update --system
 sudo -E gem install bundler
 sudo -E bundle install
+sudo gem install jekyll
 ```

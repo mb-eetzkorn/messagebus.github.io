@@ -62,20 +62,20 @@ sdks:
     services/info related to using {{ site.data.company.name }}.
 </p>
 
-<h3 class="text-info">Authentication</h3>
+<h3 class="text-info"><a id="auth">Authentication</a></h3>
 <p>
     Message Bus authenticates requests by checking for an API key, which must be present in every request regardless
     of the access method used. Your API key can be found by logging into your account and going to
     <code>App Settings->API</code>.
 </p>
 
-<h3 class="text-info">Request Format</h3>
+<h3 class="text-info"><a id="format">Request Format</a></h3>
 <p>
     When using the REST API, ensure that the <code>content-type</code> is set to <code>application/json; charset=utf-8</code>
     or the API will return HTTP error <code>406</code>. The hostname for all secure REST calls is <code>api.messagebus.com</code>.
 </p>
 
-<h3 class="text-info">Access Methods</h3>
+<h3 class="text-info"><a id="access">Access Methods</a></h3>
 <p>
     The Message Bus API is the recommended way to use the platform; you may directly integrate using the REST API, and
     SDKs containing samples and documentation are provided in six languages. If you are using Message Bus to secure,
@@ -109,7 +109,7 @@ sdks:
     {% endfor %}
 </div>
 
-<h3 class="text-info">Putting it all together</h3>
+<h3 class="text-info"><a id="gobig">Putting it all together</a></h3>
 <p class="subhead">Step 1: Test your account credentials.</p>
 
 <div class="alert alert-danger">

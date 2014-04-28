@@ -1,21 +1,20 @@
-todo:
-  - ["",                  "Read This First (incomplete)"]
-  - [general/overview,    "Overview (incomplete)"]
-
 intro:
   title: Introduction
   chapters:
-    - [channels,            "Channels 101"]
-    - [templates,           "Templates 101"]
-    - [webhooks,            "Webhooks 101"]
-    - [reports,             "Reports 101"]
-    - [general/statuscodes, "Status & Error Codes"]
+    - []
 
 api:
   title: API Reference
   chapters:
     - [
-        Channels,
+        [general, 1],
+        [
+          [general/statuscodes, "Status & Error Codes"]
+        ]
+    ]
+
+    - [
+        [channels, 1],
         [
           [channels/list,          "List Channels"],
           [channels/get,           "Get Channel"],
@@ -27,7 +26,7 @@ api:
     ]
 
     - [
-        Messaging,
+        [messaging, 0],
         [
           [send,           "Send Messages"],
           [templates/send, "Send Template"]
@@ -35,7 +34,7 @@ api:
     ]
 
     - [
-        Templates,
+        [templates, 1],
         [
           [templates/list,   "List Templates"],
           [templates/get,    "Get Template"],
@@ -46,21 +45,15 @@ api:
     ]
 
     - [
-        Webhooks,
+        [data, 1],
         [
-          [webhooks/list,   "List Webhooks"],
-          [webhooks/get,    "Get Webhook"],
-          [webhooks/post,   "Create Webhook"],
-          [webhooks/put,    "Configure Webhook"],
-          [webhooks/delete, "Delete Webhook"]
-        ]
-    ]
-
-    - [
-        Reports,
-        [
-          [reports/post,   "Create Report"],
-          [reports/status, "Check Report Status"],
-          [reports/get,    "Get Report"]
+          [data/webhooks/list,   "List Webhooks"],
+          [data/webhooks/get,    "Get Webhook"],
+          [data/webhooks/post,   "Create Webhook"],
+          [data/webhooks/put,    "Configure Webhook"],
+          [data/webhooks/delete, "Delete Webhook"],
+          [data/reports/post,    "Create Report"],
+          [data/reports/status,  "Check Report Status"],
+          [data/reports/get,     "Get Report"]
         ]
     ]

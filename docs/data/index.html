@@ -1,8 +1,16 @@
 ---
 layout: default
-title: Webhooks 101
+title: Data
+
+sample: false
 
 tocSubheads:
+    - [eventformat,    "Webhook Format"]
+    - [eventreference, "Webhook Events"]
+    - [stats,          "Statistical Reports"]
+    - [feedback,       "Feedback Reports"]
+
+webhookEvents:
     - [attempt, "message.attempt"]
     - [accept, "message.accept"]
     - [bounce, "message.bounce"]
@@ -80,7 +88,7 @@ open:
             ]
         ]
 
-        - [ device, string, "Type of device the messages was opened on (e.g. tablet, mobile, etc.)"]
+        - [ device, string, "Type of device the message was opened on (e.g. tablet, mobile, etc.)"]
 
 click:
     fields: [Field, Type, Description]
@@ -99,7 +107,7 @@ click:
             ]
         ]
 
-        - [ device, string, "Type of device the messages was opened on (e.g. tablet, mobile, etc.)"]
+        - [ device, string, "Type of device the link was clicked on (e.g. tablet, mobile, etc.)"]
 
 unsub:
     fields: [Field, Type, Description]
@@ -117,12 +125,128 @@ unsub:
         ]
 
         - [ device, string, "Type of device the messages was opened on (e.g. tablet, mobile, etc.)"]
+
+reportTypes:
+    - [stats, "Statistics"]
+    - [bounce, "Bounces"]
+    - [complaint, "Complaints"]
+    - [unsub, "Unsubscribes"]
+    - [open, "Opens"]
+    - [click, "Clicks"]
+    - [block, "Blocks"]
+    - [blocklist, "Blocklist"]
+
+stats:
+    - [sendHour,              datetime, "The hour in which the stats were collected."]
+    - [channelKey,            guid,     "The channel associated with this report, if one was specified."]
+    - [sessionKey,            guid,     "The session associated with this report, if one was specified."]
+    - [complaintCount,        int,      "Number of events received."]
+    - [unsubscribeCount,      int,      "Number of events received."]
+    - [clickCount,            int,      "Number of events received."]
+    - [openCount,             int,      "Number of events received."]
+    - [uniqueClickCount,      int,      "Number of events received."]
+    - [uniqueOpenCount,       int,      "Number of events received."]
+    - [messageCount,          int,      "Number of messages created."]
+    - [errorCount,            int,      "Number of messages that failed creation."]
+    - [sentCount,             int,      "Messages successfully delivered."]
+    - [expireCount,           int,      "Messages expired after several delivery attempts."]
+    - [hardBounceCount,       int,      "Messages rejected by the recipient domain."]
+    - [softBounceCount,       int,      "Messages rejected <em>after</em> delivery."]
+    - [rcptBadMailboxCount,   int,      "Messages rejected because they're addressed to known-bad mailboxes."]
+    - [rcptChannelBlockCount, int,      "Messages to recipients suppressed at the channel level."]
+
+feedback:
+    - [
+        common,
+        "The following fields are present in all <code>feedback</code> report types.",
+        [
+            [type,       string, "The type of feedback report requested."],
+            [channelKey, guid,   "The channel associated with this report, if one was specified."],
+            [sessionKey, guid,   "The session associated with this report, if one was specified."],
+            [messageId,  guid,     "The <code>Message-Id</code> header from the original message."],
+            [email,      string,   "The recipient email address."],
+            [eventTime,  datetime, "Time the event was recorded."],
+            [sendTime,   datetime, "Time the original message was sent."]
+        ]
+    ]
+
+    - [
+        bounce,
+        "Retuns a list of bounced <code>Message-IDs</code> & email addresses. Bounces are assigned a <code>bounceCode</code> that
+        specifies the exact reason a message bounced.",
+        [
+            [bounceCode, int, "The <a href=\"/docs/general/statuscodes/#bounces\">bounce classification code</a>."]
+        ]
+    ]
+
+    - [
+        complaint,
+        "Returns a list of <code>Message-IDs</code> & email addresses associated with spam complaint reports. Future
+        messages to these email addresses over the specified channel will be suppressed.",
+        [ "empty" ]
+    ]
+
+    - [
+        unsub,
+        "Returns a list of email addresses that have unsubscribed from the specified channel. Future messages to these
+        email addresses sent over the channel will be suppressed, but messages sent on other channels will not.",
+        [ "empty" ]
+    ]
+
+    - [
+        open,
+        "Returns a list of <code>Message-IDs</code> that were opened and the email addresses the messages were delivered
+        to.",
+        [ "empty" ]
+    ]
+
+    - [
+        click,
+        "Returns information about links that were clicked by a message recipient. The <code>mbTrackingId</code> is
+        added to the end of a URL by the sender to instruct Message Bus to track the link.",
+        [
+            [trackingId, string, "Value of the link's <code>mbTrackingId</code> parameter."]
+        ]
+    ]
+
+    - [
+        block,
+        "Returns information about email addresses that Message Bus suppressed on your behalf, because they are known
+        bad addresses (e.g. hard bounces) or they have opted-out of traffic from one or more of your channels. The
+        <code>blockCode</code> indicates the reason.",
+        [
+            [blockCode, int, "<a href=\"/docs/general/statuscodes/#blocks\">Block classification code</a>."]
+        ]
+    ]
+
+    - [
+        blocklist,
+        "Returns the list of blocked addresses tracked in your account, as well as the reason why they were blocked.",
+        [
+            [reason, string, "The reason the address was added to the blocklist (e.g. complaint, unsub, etc.)"]
+        ]
+    ]
+
+status:
+    fields: [statusCode, statusMessage]
+    values:
+        - [200, "Ok"]
+        - [204, "No content."]
+        - [401, "Unauthorized; missing or invalid API key."]
+        - [404, "Request failed; invalid report key."]
 ---
 
 <div class="page-header">
-    <h1>{{ page.title }}</h1>
+    <h1>Data 101</h1>
 </div>
+<p>
+    The {{ site.data.company.name }} Data API provides access to your data via webhooks for real-time data and
+    batch-style reports for aggregate & historical data. This overview details the event types and report formats
+    you'll encounter.
+</p>
 
+
+<h2>Webhooks</h2>
 <div class="well well-lg" style="margin-top: 2em;">
     <h3 class="text-danger">Breaking Change Notification</h3>
     <p>
@@ -142,15 +266,14 @@ unsub:
 <p>
     Consider the following when setting up your webhook endpoint(s):
 
-    <ol>
-        <li>A single webhook can be registered for multiple types of events.</li>
-        <li>If your webhook goes down, we'll retry for 24 hours before dropping an event.</li>
-        <li>Webhooks are called every 30 seconds or when 200 events of a single type have accumulated.</li>
-    </ol>
+<ol>
+    <li>A single webhook can be registered for multiple types of events.</li>
+    <li>If your webhook goes down, we'll retry for 24 hours before dropping an event.</li>
+    <li>Webhooks are called every 30 seconds or when 200 events of a single type have accumulated.</li>
+</ol>
 </p>
 
-
-<h3 class="text-info">Webhook Data Format</h3>
+<h3 class="text-info"><a id="{{ page.tocSubheads[0][0] }}">{{ page.tocSubheads[0][1] }}</a></h3>
 <p>
     The webhook data indicates the type and number of events contained in this call. Objects in the
     <code>events</code> collection contain a set of standard fields plus the event-specific fields defined in the next
@@ -158,9 +281,8 @@ unsub:
 </p>
 {% include statusBlockParam.html source=page.envelope %}
 
-
-<h3 class="text-info">Event Reference</h3>
-<p class="subhead"><a id="{{ page.tocSubheads[0][0] }}">{{ page.tocSubheads[0][1] }}</a></p>
+<h3 class="text-info"><a id="{{ page.tocSubheads[1][0] }}">{{ page.tocSubheads[1][1] }}</a></h3>
+<p class="subhead"><a id="{{ page.webhookEvents[0][0] }}">{{ page.webhookEvents[0][1] }}</a></p>
 <p>
     Generated when a new message is created via API or the SMTP Relay. The <code>messageId</code> field can
     be used to aggregate all subsequent events generated for this particular message, and the <code>recipient</code>
@@ -168,22 +290,18 @@ unsub:
     for a given message.</strong>
 </p>
 <div class="alert alert-warning">
-    <strong>Note:</strong> The <code>{{ page.tocSubheads[0][1] }}</code> event has no payload other than the envelope.
+    <strong>Note:</strong> The <code>{{ page.webhookEvents[0][1] }}</code> event has no payload other than the envelope.
 </div>
 
-
-
-<p class="subhead"><a id="{{ page.tocSubheads[1][0] }}">{{ page.tocSubheads[1][1] }}</a></p>
+<p class="subhead"><a id="{{ page.webhookEvents[1][0] }}">{{ page.webhookEvents[1][1] }}</a></p>
 <p>
     Generated when a message is successfully delivered to the recipient domain. This does not mean that the recipient
-    has gotten the message - after delivery, you receive a <code>{{ page.tocSubheads[2][1] }}</code> event indicating a
-    <a href="/docs/general/statuscodes/#bounces">soft bounce</a> has occurred.
+    has gotten the message - after delivery, you receive a <code>{{ page.webhookEvents[2][1] }}</code> event indicating a
+    <a href="/docs/general/statuscodes#bounces">soft bounce</a> has occurred.
 </p>
 {% include statusBlockParam.html source=page.accept %}
 
-
-
-<p class="subhead"><a id="{{ page.tocSubheads[2][0] }}">{{ page.tocSubheads[2][1] }}</a></p>
+<p class="subhead"><a id="{{ page.webhookEvents[2][0] }}">{{ page.webhookEvents[2][1] }}</a></p>
 <p>
     Generated when a message has bounced. A message is said to <em>bounce</em> if it's not possible to deliver it to the
     intended recipient. Bounces are commonly classified into one of two types:
@@ -196,7 +314,7 @@ unsub:
         again. Accordingly, soft bounces do not result in a recipient address being added to the global or channel
         blocklists.
     </li>
-        <br/>
+    <br/>
     <li>
         <strong>Hard</strong> - Occurs when the recipient address is permanently non-deliverable. The most frequent
         causes are typographical errors in the email address, a previously valid address that has been abandoned, or
@@ -204,41 +322,33 @@ unsub:
     </li>
 </ol>
 <p>
-    Use the <a href="/docs/general/statuscodes/#bounces">bounce subcode list</a> to determine the bounce's exact cause.
+    Use the <a href="/docs/general/statuscodes#bounces">bounce subcode list</a> to determine the bounce's exact cause.
 </p>
 {% include statusBlockParam.html source=page.bounce %}
 
-
-
-<p class="subhead"><a id="{{ page.tocSubheads[3][0] }}">{{ page.tocSubheads[3][1] }}</a></p>
+<p class="subhead"><a id="{{ page.webhookEvents[3][0] }}">{{ page.webhookEvents[3][1] }}</a></p>
 <p>
     Generated when the recipient domain has temporarily refused delivery of a message. The most common reason is
     sending too many messages over a given timeframe (e.g. hour). Message Bus will attempt to deliver deferred
     messages for 24 hours before expiring them. Expired messages can be detected by capturing the
-    <code>{{ page.tocSubheads[2][1] }}</code> event and looking for <code>subCode: 1000</code>. Most deferrals wind up
+    <code>{{ page.webhookEvents[2][1] }}</code> event and looking for <code>subCode: 1000</code>. Most deferrals wind up
     successfully delivered.
 </p>
 {% include statusBlockParam.html source=page.deferral %}
 
-
-
-<p class="subhead"><a id="{{ page.tocSubheads[4][0] }}">{{ page.tocSubheads[4][1] }}</a></p>
+<p class="subhead"><a id="{{ page.webhookEvents[4][0] }}">{{ page.webhookEvents[4][1] }}</a></p>
 <p>
     Generated when a message is opened.
 </p>
 {% include statusBlockParam.html source=page.open %}
 
-
-
-<p class="subhead"><a id="{{ page.tocSubheads[5][0] }}">{{ page.tocSubheads[5][1] }}</a></p>
+<p class="subhead"><a id="{{ page.webhookEvents[5][0] }}">{{ page.webhookEvents[5][1] }}</a></p>
 <p>
     Generated when a tracked link is clicked.
 </p>
 {% include statusBlockParam.html source=page.click %}
 
-
-
-<p class="subhead"><a id="{{ page.tocSubheads[6][0] }}"></a>{{ page.tocSubheads[6][1] }}</p>
+<p class="subhead"><a id="{{ page.webhookEvents[6][0] }}"></a>{{ page.webhookEvents[6][1] }}</p>
 <p>
     Generated when a message's unsubscribe link is clicked. This will result in the recipient address being added
     to the corresponding channel's blocklist. Beyond recording this event in your customer database, no further
@@ -246,21 +356,74 @@ unsub:
 </p>
 {% include statusBlockParam.html source=page.unsub %}
 
-
-
-<p class="subhead"><a id="{{ page.tocSubheads[7][0] }}">{{ page.tocSubheads[7][1] }}</a></p>
+<p class="subhead"><a id="{{ page.webhookEvents[7][0] }}">{{ page.webhookEvents[7][1] }}</a></p>
 <p>
     Generated when a message is reported as spam.
 </p>
 <div class="alert alert-warning">
-    <strong>Note:</strong> The <code>{{ page.tocSubheads[7][1] }}</code> event has no payload other than the envelope.
+    <strong>Note:</strong> The <code>{{ page.webhookEvents[7][1] }}</code> event has no payload other than the envelope.
 </div>
 
-
-<p class="subhead"><a id="{{ page.tocSubheads[8][0] }}">{{ page.tocSubheads[8][1] }}</a></p>
+<p class="subhead"><a id="{{ page.webhookEvents[8][0] }}">{{ page.webhookEvents[8][1] }}</a></p>
 <p>
     Generated when Message Bus stops delivery of a message because the recipient is on the Global or Channel blocklist.
 </p>
 <div class="alert alert-warning">
-    <strong>Note:</strong> The <code>{{ page.tocSubheads[8][1] }}</code> event has no payload other than the envelope.
+    <strong>Note:</strong> The <code>{{ page.webhookEvents[8][1] }}</code> event has no payload other than the envelope.
 </div>
+
+
+
+<h2>Reports</h2>
+<h3 class="text-info"><a id="{{ page.tocSubheads[2][0] }}">{{ page.tocSubheads[2][1] }}</a></h3>
+<p>
+    Statistical reports present aggregate data, summed across the entire account (default) or a specific channel or
+    session.
+</p>
+{% include apiBlockParam.html source=page.stats %}
+
+<h3 class="text-info"><a id="{{ page.tocSubheads[3][0] }}">{{ page.tocSubheads[3][1] }}</a></h3>
+<p>
+    Feedback reports return lists of email addresses and other metadata associated with a specific event, the report type
+    is named after the event.
+</p>
+<p class="subhead">Data Formats</p>
+<p>
+    Because we don't know how large any given report is going to be, we stream them back formatted either as
+    individual lines of JSON-formatted data or Comma Separated Values (CSV).
+</p>
+<p>
+    Newline-delimited JSON saves you the overhead of loading a single giant object into memory for parsing, and instead
+    allows you to parse and process individual lines. If you don't want to handle this yourself, the SDKs take care of
+    it for you.
+</p>
+<pre>
+{ ... }\n
+{ ... }\n
+{ ... }\n
+</pre>
+
+<p>
+    Modern CSV parsers can accept a stream handle as input, and downloaded CSV files are easy to manipulate in Excel,
+    Numbers, etc. The first line contains the column labels and subsequent lines contain data, which can be sparsely
+    populated.
+</p>
+<pre>
+LABEL1, LABEL2, LABEL3, ...\r\n
+DATA1,  DATA2,  DATA3,  ...\r\n
+</pre>
+
+{% for item in page.feedback %}
+    {% assign params = item[2] %}
+    <p class="subhead"><a id="{{ item[0] }}">{{ item[0] | capitalize }} {% unless forloop.first %} Report {% endunless %}</a></p>
+    <p>
+        {{ item[1] }}
+    </p>
+    {% if params[0] != "empty" %}
+        {% include apiBlockParam.html source=params %}
+    {% else %}
+    <div class="alert alert-warning">
+        <strong>Note:</strong> The <code>{{ item[0] }}</code> report type has no payload other than the common fields.
+    </div>
+    {% endif %}
+{% endfor %}

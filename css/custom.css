@@ -24,18 +24,26 @@ ol.body-list
     margin-bottom: 0em;
 }
 
-h3.toc-subhead
+h3.toc-subhead,
+h3.toc-subhead a
 {
     margin-top: 0em;
     font-size: 20px;
     font-weight: normal;
     line-height: 1;
+    _text-decoration: none;
     color: #999999;
+}
+
+ul.toc-main
+{
+    padding-left: 0.20em;
+    list-style-type: none;
 }
 
 ul.toc-subhead
 {
-    padding-left: 0.25em;
+    padding-left: 0.30em;
     list-style-type: none;
 }
 

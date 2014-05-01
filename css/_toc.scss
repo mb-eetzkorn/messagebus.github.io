@@ -1,0 +1,35 @@
+.home {
+  font-size: 1em;
+  a {
+    display: block;
+    padding: 12px;
+    padding-left: 56px;
+    background-image: url(../assets/logo.png);
+    background-position: left center;
+    background-repeat: no-repeat;
+  }
+}
+
+h3.toc-subhead,
+h3.toc-subhead a
+{
+    margin-top: 0em;
+    font-size: 12px;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #4d525a;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+ul.toc-main
+{
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 24px;
+
+  li, li a {
+    color: #4d525a;
+  }
+}

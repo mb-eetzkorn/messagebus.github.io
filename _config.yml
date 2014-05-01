@@ -5,8 +5,10 @@ layouts:     ./_layouts
 
 exclude: [_internal, Gemfile.lock, Gemfile, scratch, README.md]
 
-safe: true
+# safe: true
 lsi: false
 
 redcarpet:
   extensions: []
+
+encoding: utf-8

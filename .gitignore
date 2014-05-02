@@ -2,3 +2,4 @@
 _site/
 scratch
 Gemfile.lock
+.sass-cache/

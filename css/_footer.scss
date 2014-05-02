@@ -1,0 +1,31 @@
+// Footer
+
+.page-footer {
+  border-top: 1px solid #e5e5e5;
+  padding: 32px;
+  font-size: 0.9em;
+}
+
+.page-footer-copy {
+  margin: 0;
+  color: #b4b8bf;
+  text-align: center;
+}
+
+ul.page-footer-menu {
+  list-style: none;
+  margin: 0;
+  float: right;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    margin-right: 12px;
+
+    a {
+      color: #b4b8bf;
+    }
+  }
+}

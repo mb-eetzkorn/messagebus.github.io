@@ -1,38 +1,33 @@
 ---
 layout: default
 title: Introduction
-greeting: Welcome!
+greeting: Getting started
 tagline: Smart Email in the Cloud has Arrived.
 ---
 
-<div class="jumbotron" style="margin-top: 2em; position: relative">
-    <img class="docs-logo" src="/assets/message_bus_icon.png" alt=""/>
-    <h1 style="color: #428bca;">{{ page.greeting }}<br/><small>{{ page.tagline }}</small></h1>
-    <p>
+<header class="mb-docs-header">
+    <h1 class="text-primary page-title">{{ page.greeting }}</h1>
+    <p class="lead">
         {{ site.data.company.name }} transforms mortals into messaging heroes. Take 5 minutes to learn how to get the
         most out us; we promise it'll be worth your while.
     </p>
-</div>
+</header>
 
-<div class="media">
-    <a class="pull-left" href="#">
-        <img class="media-object" style="width: 200px;" title="Placeholder!" src="/assets/colbert.gif"/>
-    </a>
-    <div class="media-body">
-        <h2 class="media-heading text-info">Segment Messages by Type</h2>
+<div class="mb-docs-section clearfix">
+    <div data-icon="segment">
+        <h3 class="text-primary mb-docs-section-title">Segment Messages by Type</h3>
         <p class="lead">
-            Use Channels & Sessions to separate and track different types of mail.
+            Use Channels &amp; Sessions to separate and track different types of mail.
         </p>
         <p>
             The key reason senders get into email trouble is because they send different types of content over the same
             domains and IP addresses. Using that approach, the best performance you'll get is that of your worst-performing
-            content.
+            content. <strong>Best practices:</strong>
         </p>
-        <h4 class="text-primary">Best Practices</h4>
         <ol>
             <li>Use one Channel per message type, such as alerts, notifications, newsletters, etc.</li>
             <li>Create Sessions to track unique categories, such as Password Alert, Low Balance Alert, etc.</li>
-            <li><a data-toggle="collapse" data-target="#segment">Learn More!</a></li>
+            <li><a href="#" data-toggle="collapse" data-target="#segment" onclick="return false;">Learn More!</a></li>
         </ol>
     </div>
     <div id="segment" class="panel panel-default collapse">
@@ -56,24 +51,20 @@ tagline: Smart Email in the Cloud has Arrived.
     </div>
 </div>
 
-<div class="media">
-    <a class="pull-left" href="#">
-        <img class="media-object" style="width: 200px;" title="Placeholder!" src="/assets/colbert.gif"/>
-    </a>
-    <div class="media-body">
-        <h2 class="text-info media-heading">Fully Authenticate Your Email Streams</h2>
+<div class="mb-docs-section clearfix">
+    <div data-icon="authenticate">
+        <h3 class="text-primary mb-docs-section-title">Fully Authenticate Your Email Streams</h3>
         <p class="lead">
             {{ site.data.company.name }} fully authenticates your email streams to ensure maximum delivery.
         </p>
         <p>
             {{ site.data.company.name }} helped write the book on DMARC - literally! Who better to send your email than
-            the thought leaders in messaging authentication - that's us.
+            the thought leaders in messaging authentication - that's us. <strong>Best practices:</strong>
         </p>
-        <h4 class="text-primary">Best Practices</h4>
         <ol>
             <li>Implement a valid DMARC record to secure your sending domain.</li>
             <li>Implement appropriate SPF and DKIM records to ensure verified delivery.</li>
-            <li><a data-toggle="collapse" data-target="#track">Learn More!</a></li>
+            <li><a href="#" data-toggle="collapse" data-target="#track" onclick="return false;">Learn More!</a></li>
         </ol>
     </div>
     <div id="track" class="panel panel-default collapse">
@@ -103,26 +94,22 @@ tagline: Smart Email in the Cloud has Arrived.
     </div>
 </div>
 
-<div class="media">
-    <a class="pull-left" href="#">
-        <img class="media-object" style="width: 200px;" title="Placeholder!" src="/assets/colbert.gif"/>
-    </a>
-    <div class="media-body">
-        <h2 class="text-info media-heading">Real-Time Event Tracking and Analytics</h2>
+<div class="mb-docs-section clearfix">
+    <div data-icon="realtime">
+        <h3 class="text-primary mb-docs-section-title">Real-Time Event Tracking and Analytics</h3>
         <p class="lead">
-            Track all & know all by using {{ site.data.company.name }} Webhooks for Real-Time event tracking of your email universe.
+            Track all &amp; know all by using {{ site.data.company.name }} Webhooks for Real-Time event tracking of your email universe.
         </p>
         <p>
             Know it all without being a know it all. With API-driven real-time event tracking, you create a self-evolving
             database of actionable intelligence. Record all activity such as opens, clicks, bounces and much more at
-            both aggregate and granular levels - all by implementing {{ site.data.company.name }} Webhooks.
+            both aggregate and granular levels - all by implementing {{ site.data.company.name }} Webhooks. <strong>Best practices:</strong>
         </p>
-        <h4 class="text-primary">Best Practices</h4>
         <ol>
             <li>Verified hard bounces are added to our client-wide blocklist, preventing any {{ site.data.company.name }}
             customer from sending to an invalid email address.</li>
             <li>Automated bounce, unsubscribe, and complaint processing.</li>
-            <li><a data-toggle="collapse" data-target="#realtime">Learn More!</a></li>
+            <li><a href="#" data-toggle="collapse" data-target="#realtime" onclick="return false;">Learn More!</a></li>
         </ol>
     </div>
     <div id="realtime" class="panel panel-default collapse">

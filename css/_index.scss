@@ -1,0 +1,34 @@
+// Index page
+
+h1, .page-title {
+  margin-bottom: 42px;
+  font-weight: lighter;
+}
+
+.mb-docs-header {
+  padding-bottom: 32px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.mb-docs-section {
+  border-bottom: 1px solid #e5e5e5;
+  padding: 32px 0 32px 0;
+
+  > div:first-child {
+    padding-top: 100px;
+    background-position: center 0px;
+  }
+
+  .mb-docs-section-title {
+    font-size: 1.3em;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+
+.lead {
+  font-size: 1.3em;
+}

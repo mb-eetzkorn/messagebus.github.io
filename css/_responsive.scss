@@ -1,0 +1,48 @@
+@import './bootstrap/variables';
+
+// Mobile is the default in bootstrap
+
+.affix {
+  position: relative;
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: $screen-sm-min) {
+
+  // docs-section (index)
+  .mb-docs-section {
+
+    > div:first-child {
+      padding-top: 0;
+      padding-left: 200px;
+      background-position: 50px 0;
+    }
+
+  }
+
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: $screen-md-min) {
+
+  // Sidebar (affix)
+  .affix {
+    top: 0;
+    position: fixed;
+  }
+
+  .affix-bottom {
+    position: relative;
+  }
+
+  .affix-top {
+    position: fixed;
+  }
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: $screen-lg-min) {
+
+
+}

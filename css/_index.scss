@@ -1,9 +1,3 @@
-body {
-  background-image: url(../assets/bg.png);
-  background-position: top center;
-  background-repeat: no-repeat;
-}
-
 // Index page
 
 h1, .page-title {
@@ -21,7 +15,8 @@ h1, .page-title {
   padding: 32px 0 32px 0;
 
   > div:first-child {
-    padding-left: 200px
+    padding-top: 100px;
+    background-position: center 0px;
   }
 
   .mb-docs-section-title {
@@ -36,53 +31,4 @@ h1, .page-title {
 
 .lead {
   font-size: 1.3em;
-}
-
-
-// Icons
-
-[data-icon=type] {
-  background-image: url(../assets/type.png);
-  background-repeat: no-repeat;
-  background-position: 50px 0;
-}
-
-[data-icon=streams] {
-  background-image: url(../assets/streams.png);
-  background-repeat: no-repeat;
-  background-position: 50px 0;
-}
-
-[data-icon=analytics] {
-  background-image: url(../assets/analytics.png);
-  background-repeat: no-repeat;
-  background-position: 50px 0;
-}
-
-// Footer
-
-.page-footer {
-  border-top: 1px solid #e5e5e5;
-  padding: 32px;
-  font-size: 0.9em;
-}
-
-.page-footer-copy {
-  margin: 0;
-  color: #b4b8bf;
-}
-
-ul.page-footer-menu {
-  list-style: none;
-  margin: 0;
-  float: right;
-
-  li {
-    display: inline-block;
-    margin-right: 12px;
-
-    a {
-      color: #b4b8bf;
-    }
-  }
 }

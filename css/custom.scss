@@ -1,8 +1,18 @@
 ---
 ---
 
+
 @import './index';
 @import './toc';
+@import './icons';
+@import './footer';
+@import './responsive';
+
+body {
+  background-image: url(../assets/bg.png);
+  background-position: top center;
+  background-repeat: no-repeat;
+}
 
 ol {
   padding-left: 20px;

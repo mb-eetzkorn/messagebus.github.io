@@ -23,6 +23,10 @@ h3.toc-subhead a
     margin-bottom: 16px;
 }
 
+h3.toc-subhead a:hover {
+  text-decoration: underline;
+}
+
 ul.toc-main
 {
   list-style-type: none;

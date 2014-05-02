@@ -1,13 +1,14 @@
 ---
 ---
 
-
+@import './bootstrap';
 @import './index';
 @import './toc';
 @import './icons';
 @import './footer';
 @import './responsive';
 
+// custom
 body {
   background-image: url(../assets/bg.png);
   background-position: top center;

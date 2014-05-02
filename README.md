@@ -13,3 +13,9 @@ sudo -E gem install bundler
 sudo -E bundle install
 sudo gem install jekyll
 ```
+
+Once everything is installed, run the following command from the repo root.
+
+```
+jekyll serve --watch
+```

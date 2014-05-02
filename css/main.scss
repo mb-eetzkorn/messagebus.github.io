@@ -1,0 +1,65 @@
+---
+---
+
+@import './bootstrap';
+@import './index';
+@import './toc';
+@import './icons';
+@import './footer';
+@import './responsive';
+
+// custom
+body {
+  background-image: url(../assets/bg.png);
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+
+ol {
+  padding-left: 20px;
+}
+
+pre
+{
+    border-radius: 0px;
+}
+
+ul.body-list,
+ol.body-list
+{
+    font-size: 14px;
+    font-weight: 200;
+    line-height: 1.4;
+}
+
+a.active-section
+{
+    font-weight: 600;
+}
+
+.tab-panel
+{
+    border: solid #ddd;
+    border-width: 0 1px 1px 1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.bump-down
+{
+    margin-top: 2em;
+}
+
+.screencap
+{
+    width: 250px;
+}
+
+.box-title
+{
+    position: absolute;
+    display: inline;
+    top: -1.15em;
+    padding: 0 0.5em 0 0.5em;
+    background-color: #ffffff;
+}

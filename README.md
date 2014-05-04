@@ -19,3 +19,10 @@ Once everything is installed, run the following command from the repo root.
 ```
 jekyll serve --watch
 ```
+
+# Handling CSS Changes
+Do not modify CSS files directly. Modify the `.scss` file that builds it and compile using `jekyll build`. You will
+need to manually copy `./_site/css/main.css` to `./css/main.css` and check it in.
+
+**NOTE:** You must modify asset paths in the compiled CSS to point to `/assets/` instead of `/_site/assets/` or you
+ will break images, logos, etc. in the docs.

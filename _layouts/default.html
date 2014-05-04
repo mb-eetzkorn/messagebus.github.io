@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <div data-spy="affix" data-offset-bottom="200">
+                <div data-spy="affix">
 
                     {% assign intro = site.data.toc.intro %}
 
@@ -83,25 +83,26 @@
             </div>
         </div>
     </div>
+
     <footer class="page-footer clearfix">
-      <div class="col-md-6">
-        <p class="page-footer-copy">
-          &copy; 2014 {{ site.data.company.name }}. All Rights Reserved.
-        </p>
-      </div>
-      <div class="col-md-6">
-        <ul class="page-footer-menu">
-          <li><a href="http://beta.messagebus.com">Home</a></li>
-          <li><a href="http://beta.messagebus.com/about">About</a></li>
-          <li><a href="/">Documentation</a></li>
-          <li><a href="http://beta.messagebus.com/privacy-policy">Policy</a></li>
-          <li><a href="http://beta.messagebus.com/terms-of-service">Terms</a></li>
-        </ul>
-      </div>
+        <div class="col-md-6">
+            <p class="page-footer-copy">
+                &copy; 2014 {{ site.data.company.name }}. All Rights Reserved.
+            </p>
+        </div>
+        <div class="col-md-6">
+            <ul class="page-footer-menu">
+                <li><a href="http://beta.messagebus.com">Home</a></li>
+                <li><a href="http://beta.messagebus.com/about">About</a></li>
+                <li><a href="/">Documentation</a></li>
+                <li><a href="http://beta.messagebus.com/privacy-policy">Policy</a></li>
+                <li><a href="http://beta.messagebus.com/terms-of-service">Terms</a></li>
+            </ul>
+        </div>
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
     <script src="/js/main.js"></script>
 
     <!--
@@ -109,10 +110,11 @@
     -->
 
     <script>
-        // if( pageScript != undefined )
-        // {
-        //     pageScript();
-        // }
+        // must keep this so doc page script routines run. do not comment out.
+        if( pageScript != undefined )
+        {
+             pageScript();
+        }
     </script>
 
 </body>

@@ -50,7 +50,7 @@ api:
           [data/webhooks/list,   "List Webhooks"],
           [data/webhooks/get,    "Get Webhook"],
           [data/webhooks/post,   "Create Webhook"],
-          [data/webhooks/put,    "Configure Webhook"],
+          [data/webhooks/put,    "Modify Webhook"],
           [data/webhooks/delete, "Delete Webhook"],
           [data/reports/post,    "Create Report"],
           [data/reports/status,  "Check Report Status"],

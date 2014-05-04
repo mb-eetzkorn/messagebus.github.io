@@ -63,3 +63,30 @@ a.active-section
     padding: 0 0.5em 0 0.5em;
     background-color: #ffffff;
 }
+
+.field-name
+{
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.field-name-light
+{
+  font-family: monospace;
+  font-weight: 500;
+}
+
+.subhead
+{
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 1;
+  margin-top: 1em;
+  color: #999999;
+}
+
+h3.text-info a
+{
+  text-decoration: none;
+  color: #817aeb; // was: #31708f;
+}

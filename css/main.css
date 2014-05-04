@@ -6384,37 +6384,37 @@ ul.toc-main li, ul.toc-main li a {
 }
 
 [data-icon=authenticate] {
-    background-image: url("../_site/assets/icon-authenticate-color.png");
+    background-image: url("../assets/icon-authenticate-color.png");
     background-repeat: no-repeat
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
     [data-icon=authenticate] {
-        background-image: url("../_site/assets/icon-authenticate-color@2x.png");
+        background-image: url("../assets/icon-authenticate-color@2x.png");
         background-size: 100px 79px
     }
 }
 
 [data-icon=realtime] {
-    background-image: url("../_site/assets/icon-realtime-color.png");
+    background-image: url("../assets/icon-realtime-color.png");
     background-repeat: no-repeat
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
     [data-icon=realtime] {
-        background-image: url("../_site/assets/icon-realtime-color@2x.png");
+        background-image: url("../assets/icon-realtime-color@2x.png");
         background-size: 100px 100px
     }
 }
 
 [data-icon=segment] {
-    background-image: url("../_site/assets/icon-segment-color.png");
+    background-image: url("../assets/icon-segment-color.png");
     background-repeat: no-repeat
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
     [data-icon=segment] {
-        background-image: url("../_site/assets/icon-segment-color@2x.png");
+        background-image: url("../assets/icon-segment-color@2x.png");
         background-size: 95px 100px
     }
 }
@@ -6477,7 +6477,7 @@ ul.page-footer-menu li a {
 }
 
 body {
-    background-image: url(../_site/assets/bg.png);
+    background-image: url(../assets/bg.png);
     background-position: top center;
     background-repeat: no-repeat
 }

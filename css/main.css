@@ -6348,7 +6348,7 @@ h1, .page-title {
     display: block;
     padding: 12px;
     padding-left: 56px;
-    background-image: url(../_site/assets/logo.png);
+    background-image: url(../assets/logo.png);
     background-position: left center;
     background-repeat: no-repeat
 }

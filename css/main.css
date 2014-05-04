@@ -276,7 +276,7 @@ td, th {
 
 html {
     font-size: 62.5%;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+    -webkit-tap-highlight-color: transparent
 }
 
 body {
@@ -6077,7 +6077,7 @@ button.close {
     border-radius: 10px;
     cursor: pointer;
     background-color: #000 \9;
-    background-color: rgba(0, 0, 0, 0)
+    background-color: transparent
 }
 
 .carousel-indicators .active {
@@ -6348,20 +6348,25 @@ h1, .page-title {
     display: block;
     padding: 12px;
     padding-left: 56px;
-    background-image: url(../assets/logo.png);
+    background-image: url(../_site/assets/logo.png);
     background-position: left center;
     background-repeat: no-repeat
 }
 
 h3.toc-subhead, h3.toc-subhead a {
     margin-top: 0em;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1;
     text-decoration: none;
     text-transform: uppercase;
     color: #4d525a;
     font-weight: 600;
-    margin-bottom: 16px
+    margin-bottom: 14px
+}
+
+ul.toc-subhead {
+    padding-left: 0.30em;
+    list-style-type: none
 }
 
 h3.toc-subhead a:hover {
@@ -6379,37 +6384,37 @@ ul.toc-main li, ul.toc-main li a {
 }
 
 [data-icon=authenticate] {
-    background-image: url("../assets/icon-authenticate-color.png");
+    background-image: url("../_site/assets/icon-authenticate-color.png");
     background-repeat: no-repeat
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
     [data-icon=authenticate] {
-        background-image: url("../assets/icon-authenticate-color@2x.png");
+        background-image: url("../_site/assets/icon-authenticate-color@2x.png");
         background-size: 100px 79px
     }
 }
 
 [data-icon=realtime] {
-    background-image: url("../assets/icon-realtime-color.png");
+    background-image: url("../_site/assets/icon-realtime-color.png");
     background-repeat: no-repeat
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
     [data-icon=realtime] {
-        background-image: url("../assets/icon-realtime-color@2x.png");
+        background-image: url("../_site/assets/icon-realtime-color@2x.png");
         background-size: 100px 100px
     }
 }
 
 [data-icon=segment] {
-    background-image: url("../assets/icon-segment-color.png");
+    background-image: url("../_site/assets/icon-segment-color.png");
     background-repeat: no-repeat
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
     [data-icon=segment] {
-        background-image: url("../assets/icon-segment-color@2x.png");
+        background-image: url("../_site/assets/icon-segment-color@2x.png");
         background-size: 95px 100px
     }
 }
@@ -6472,7 +6477,7 @@ ul.page-footer-menu li a {
 }
 
 body {
-    background-image: url(../assets/bg.png);
+    background-image: url(../_site/assets/bg.png);
     background-position: top center;
     background-repeat: no-repeat
 }
@@ -6516,4 +6521,27 @@ a.active-section {
     top: -1.15em;
     padding: 0 0.5em 0 0.5em;
     background-color: #ffffff
+}
+
+.field-name {
+    font-family: monospace;
+    font-weight: 600
+}
+
+.field-name-light {
+    font-family: monospace;
+    font-weight: 500
+}
+
+.subhead {
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 1;
+    margin-top: 1em;
+    color: #999999
+}
+
+h3.text-info a {
+    text-decoration: none;
+    color: #817aeb
 }

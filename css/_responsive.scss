@@ -25,15 +25,16 @@
 
   // Sidebar (affix)
   .affix {
-    top: 0;
+    top: 10px;
     position: fixed;
   }
 
   .affix-bottom {
-    position: relative;
+    position: absolute;
   }
 
   .affix-top {
+    top: 10px;
     position: fixed;
   }
 

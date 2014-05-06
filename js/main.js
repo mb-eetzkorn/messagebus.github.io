@@ -1,4 +1,4 @@
-// ;(function() {
+//(function() {
 //
 //   if($('#menu-affix').outerHeight() < $(window).outerHeight()) {
 //
@@ -11,4 +11,4 @@
 //
 //   }
 //
-// })()
+//})();

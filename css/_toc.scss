@@ -1,5 +1,5 @@
 .home {
-  font-size: 1em;
+  font-size: 1.5em;
   a {
     display: block;
     padding: 12px;
@@ -14,13 +14,19 @@ h3.toc-subhead,
 h3.toc-subhead a
 {
     margin-top: 0em;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1;
     text-decoration: none;
     text-transform: uppercase;
     color: #4d525a;
     font-weight: 600;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
+}
+
+ul.toc-subhead
+{
+  padding-left: 0.30em;
+  list-style-type: none;
 }
 
 h3.toc-subhead a:hover {
@@ -37,3 +43,4 @@ ul.toc-main
     color: #4d525a;
   }
 }
+

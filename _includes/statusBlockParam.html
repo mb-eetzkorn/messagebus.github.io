@@ -9,7 +9,7 @@
     <tbody>
     {% for status in include.source.values %}
     <tr id="_{{ status[0] }}">
-        {% if status[1] == "collection" %}
+        {% if status[1] == "collection" or status[1] == "object" %}
         <td class="field-name">{{ status[0] }}</td>
         <td>{{ status[1] }}</td>
         <td>

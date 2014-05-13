@@ -17,7 +17,7 @@ response:
             [uri, string, "The HTTP endpoint called by the webhook service."],
             [webhookKey, guid, "The webhook's unique-id, to be used in other calls to the Webhook API."],
             [eventType, string, "The event this webhook services. The same webhook-uri can service many events, but each webhook-uri/event tuple gets a unique-id."],
-            [channelKey, guid, "The channel this webhook fires events for. If <code>null</code> the webhook is active on all channels."],
+            [channelKey, guid, "The channel this webhook fires events for. If not present the webhook is active on all channels."],
             [dateCreated, datetime, "Creation timestamp."],
             [lastUpdated, datetime, "Last modified timestamp."]
         ]

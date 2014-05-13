@@ -11,28 +11,15 @@ tocSubheads:
     - [feedback,       "Feedback Reports"]
 
 webhookEvents:
-    - [attempt, "message.attempt"]
-    - [accept, "message.accept"]
-    - [bounce, "message.bounce"]
-    - [deferral, "message.deferral"]
-    - [open, "message.open"]
-    - [click, "link.click"]
-    - [unsub, "recipient.unsubscribe"]
-    - [junk, "recipient.complaint"]
-    - [blocks, "recipient.block"]
-
-webhook_bc:
-    fields: [Current Name, Proposed Name, Description]
-    values:
-        - [message.attempt, message.created, "A new message was created via the API or SMTP Relay."]
-        - [message.accept, message.delivered, "Message was successfully delivered (<code>SMTP 2yz</code>)"]
-        - [message.deferral, message.deferred, "Message was not delivered yet, we are retrying"]
-        - [message.bounce, message.bounced, "Message was not delivered (<code>SMTP 4yz, 5yz</code>)"]
-        - [message.open, message.opened, "Message was opened by the recipient."]
-        - [link.click, link.clicked, "A tracked link was clicked."]
-        - [recipient.block, filter.blocked, "Message was not sent because the recipient is on a blocklist."]
-        - [recipient.unsubscribe, recipient.unsubscribed, "The recipient unsubscribed from and will not receive future messages sent on the specified channel."]
-        - [recipient.complaint, recipient.complained, "The recipient filed a spam report and will not receive future messages sent on the specified channel."]
+    - [attempt, "message.created"]
+    - [accept, "message.delivered"]
+    - [bounce, "message.bounced"]
+    - [deferral, "message.deferred"]
+    - [open, "message.opened"]
+    - [click, "link.clicked"]
+    - [unsub, "recipient.unsubscribed"]
+    - [junk, "recipient.complained"]
+    - [blocks, "filter.blocked"]
 
 envelope:
     fields: [Field, Type, Description]
@@ -78,7 +65,7 @@ open:
     values:
         - [
             location,
-            collection,
+            object,
             [
                 [latitude, float, "Latitude coordinate of the Client IP opening the message."],
                 [longitude, float, "Longitude coordinate of the Client IP opening the message."],
@@ -97,7 +84,7 @@ click:
         - [trackingId, string, "The value of the <code>mbTrackingId</code> value appended to the URL."]
         - [
             location,
-            collection,
+            object,
             [
                 [latitude, float, "Latitude coordinate of the Client IP opening the message."],
                 [longitude, float, "Longitude coordinate of the Client IP opening the message."],
@@ -114,7 +101,7 @@ unsub:
     values:
         - [
             location,
-            collection,
+            object,
             [
                 [latitude, float, "Latitude coordinate of the Client IP opening the message."],
                 [longitude, float, "Longitude coordinate of the Client IP opening the message."],
@@ -246,16 +233,16 @@ status:
 </p>
 
 
-<h2>Webhooks</h2>
-<div class="well well-lg" style="margin-top: 2em;">
-    <h3 class="text-danger">Breaking Change Notification</h3>
-    <p>
-        <strong>Note:</strong> On May 20 2014 the following changes to event names & payload will go into production and this
-        documentation will be updated. The old and the new will operate in parallel from May 10-20 to allow users to
-        migrate their code.
-    </p>
-    {% include statusBlockParam.html source=page.webhook_bc %}
-</div>
+<!--<h2>Webhooks</h2>-->
+<!--<div class="well well-lg" style="margin-top: 2em;">-->
+    <!--<h3 class="text-danger">Breaking Change Notification</h3>-->
+    <!--<p>-->
+        <!--<strong>Note:</strong> On May 20 2014 the following changes to event names & payload will go into production and this-->
+        <!--documentation will be updated. The old and the new will operate in parallel from May 10-20 to allow users to-->
+        <!--migrate their code.-->
+    <!--</p>-->
+    <!--{% include statusBlockParam.html source=page.webhook_bc %}-->
+<!--</div>-->
 
 <p>
     A webhook is an HTTP endpoint you publish that Message Bus POSTs events to when they occur. Your data comes to you,

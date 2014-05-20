@@ -10,10 +10,7 @@
 
 // custom
 body {
-  background-image: url(../assets/bg.png);
-  background-position: top center;
-  background-repeat: no-repeat;
-  border-top: 4px solid #817aeb;
+  border-top: 3px solid $brand-primary;
 }
 
 ol {
@@ -23,6 +20,18 @@ ol {
 pre
 {
     border-radius: 0px;
+}
+
+h1{
+  font-size: 36px;
+}
+
+h2,h3,h4{
+  font-weight: 300;
+}
+
+h3.text-info{
+  color: $text-color;
 }
 
 ul.body-list,
@@ -89,5 +98,5 @@ a.active-section
 h3.text-info a
 {
   text-decoration: none;
-  color: #817aeb; // was: #31708f;
+  color: #31708f;
 }

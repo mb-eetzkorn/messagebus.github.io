@@ -1,16 +1,16 @@
 // Icons
 
 [data-icon=authenticate] {
-  @include img-retina('../assets/icon-authenticate-color.png', '../assets/icon-authenticate-color@2x.png', 100px, 79px);
+  @include img-retina('../assets/icon-authenticate.png', '../assets/icon-authenticate@2x.png', 120px, 120px);
   background-repeat: no-repeat;
 }
 
 [data-icon=realtime] {
-  @include img-retina('../assets/icon-realtime-color.png', '../assets/icon-realtime-color@2x.png', 100px, 100px);
+  @include img-retina('../assets/icon-realtime.png', '../assets/icon-realtime@2x.png', 120px, 120px);
   background-repeat: no-repeat;
 }
 
 [data-icon=segment] {
-  @include img-retina('../assets/icon-segment-color.png', '../assets/icon-segment-color@2x.png', 95px, 100px);
+  @include img-retina('../assets/icon-segments.png', '../assets/icon-segments@2x.png', 120px, 120px);
   background-repeat: no-repeat;
 }

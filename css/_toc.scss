@@ -1,12 +1,21 @@
 .home {
-  font-size: 1.5em;
+  margin-top: 56px;
+  font-size: 1em;
   a {
     display: block;
     padding: 12px;
     padding-left: 56px;
-    background-image: url(../assets/logo.png);
+    @include img-retina('../assets/mb-logo-blue-1.png', '../assets/mb-logo-blue-1@2x.png', 36px, 36px);
     background-position: left center;
     background-repeat: no-repeat;
+    color: $brand-primary;
+    font-weight: 500;
+    @include transition(all, .25s);
+
+    &:hover{
+      color: $brand-info;
+      text-decoration: none;
+    }
   }
 }
 
@@ -14,13 +23,15 @@ h3.toc-subhead,
 h3.toc-subhead a
 {
     margin-top: 0em;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1;
     text-decoration: none;
     text-transform: uppercase;
+    letter-spacing: 0.15em;
     color: #4d525a;
     font-weight: 600;
     margin-bottom: 14px;
+    opacity: .8;
 }
 
 ul.toc-subhead
@@ -37,10 +48,9 @@ ul.toc-main
 {
   list-style-type: none;
   padding-left: 0;
-  margin-bottom: 24px;
+  margin-bottom: 30px;
 
   li, li a {
     color: #4d525a;
   }
 }
-

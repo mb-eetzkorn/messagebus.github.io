@@ -133,11 +133,12 @@
   </script>
 
   <script>
-      // must keep this so doc page script routines run. do not comment out.
-      if( pageScript != undefined )
-      {
-           pageScript();
-      }
+    // must keep this so doc page script routines run. do not comment out.
+    try {
+      pageScript();
+    } catch (e) {
+
+    }
   </script>
 
 </body>

@@ -19,8 +19,22 @@
   }
 }
 
+//h3.toc-subhead,
+//h3.toc-subhead a
+//{
+//    margin-top: 0em;
+//    font-size: 12px;
+//    line-height: 1;
+//    text-decoration: none;
+//    text-transform: uppercase;
+//    letter-spacing: 0.15em;
+//    color: #4d525a;
+//    font-weight: 600;
+//    margin-bottom: 14px;
+//    opacity: .8;
+//}
+
 h3.toc-subhead,
-h3.toc-subhead a
 {
     margin-top: 0em;
     font-size: 12px;
@@ -32,6 +46,9 @@ h3.toc-subhead a
     font-weight: 600;
     margin-bottom: 14px;
     opacity: .8;
+    a {
+      text-decoration: underline;
+    };
 }
 
 ul.toc-subhead

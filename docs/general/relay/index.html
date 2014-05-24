@@ -1,0 +1,59 @@
+---
+layout: default
+title: Using the SMTP Relay
+---
+
+<header class="mb-docs-header">
+    <h1 class="text-primary page-title">{{ page.title }}</h1>
+    <p class="lead">
+        The SMTP Relay helps you use your {{ site.data.company.name }} account with existing email systems or 3rd-party
+        services that you'd like to continue using, but want the benefits of routing your mail through your account.
+    </p>
+</header>
+
+<h3 class="text-info">Overview</h3>
+<p>
+    Clients have the option to send mail through the Message Bus Platform using SMTP via the SMTP Relay. The relay maps
+    inbound SMTP connections to Messaging API calls and returns standard SMTP response codes and was designed to
+    integrate seamlessly with your existing SMTP-based code or infrastructure.
+</p>
+
+<h3 class="text-info">Connecting to the Relay</h3>
+<p>
+    The relay requires a secure connection from your outbound SMTP server using TLS. The relay hostname is <code>bridge.messagebus.com</code>
+    and listens on TCP port <code>2587</code>. Specify your <code>Account Name</code> as the TLS username and your
+    <code>API Key</code> as the password.
+</p>
+
+<h3 class="text-info">Message Routing</h3>
+<p class="subhead">Using the <code>From:</code> address</p>
+<p>
+    Using a technique known as <em>mailbox subaddressing</em>, you can easily control which session the relay transmits
+    your messages on. Subaddressing is accomplished by appending <code>+{string}</code> to the mailbox portion of the
+    address you're sending from. For example, in <code>hello+world@messagebus.com</code> the subaddress is <code>+world</code>.
+</p>
+<p>
+    If your <code>sessionKey</code> was <code>1111111111ABCDEF0123456789ABCDEF</code>, the complete <code>From:</code> address
+    would be <code>From: "Hello" &lt;hello+1111111111ABCDEF0123456789ABCDEF@messagebus.com&gt;</code>. When the relay
+    sees this special formatting it strips the <code>sessionKey</code> out so your users won't see it.
+</p>
+
+
+<p class="subhead">Using the <code>x-messagebus-sessionkey</code> custom header</p>
+<p>
+    If you are able to insert custom headers into your outbound messages, the <code>x-messagebus-sessionkey</code>
+    header can be used to specify the <code>sessionKey</code> you want to use.
+</p>
+
+<h3 class="text-info">Examples</h3>
+<p class="subhead">Configuring Postfix</p>
+<p>
+    Modify <code>main.cf</code> as follows to tell Postfix how to connect to the Message Bus relay.
+</p>
+{% gist messagebus/b46b22d7f7b5a5807044 %}
+
+<p class="subhead">Using the custom header</p>
+<p>
+    A simple Ruby example to illustrate.
+</p>
+{% gist messagebus/7b1008e478a5cf166c38 %}

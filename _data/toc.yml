@@ -9,7 +9,8 @@ api:
     - [
         [general, 1],
         [
-          [general/statuscodes, "Status & Error Codes"]
+          [general/statuscodes, "Status & Error Codes"],
+          [general/relay,       "Using the SMTP Relay"]
         ]
     ]
 

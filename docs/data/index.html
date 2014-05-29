@@ -31,10 +31,10 @@ envelope:
             collection,
             [
                 [messageId, guid, "The unique message-id assigned to the message when we accepted it for delivery."],
-                [recipient, string, "The address the message was originally sent to."],
+                [toEmail, string, "The address the message was originally sent to."],
                 [subject, string, "Contents of the message's <code>Subject</code> header."],
-                [channel, guid, "The channel the message was sent over."],
-                [session, guid, "The session key used to send the message."],
+                [channelKey, guid, "The channel the message was sent over."],
+                [sessionKey, guid, "The session key used to send the message."],
                 [eventTime, datetime, "Event timestamp in GMT."],
                 [..., "", ""]
             ]

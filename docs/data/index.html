@@ -232,18 +232,6 @@ status:
     you'll encounter.
 </p>
 
-
-<!--<h2>Webhooks</h2>-->
-<!--<div class="well well-lg" style="margin-top: 2em;">-->
-    <!--<h3 class="text-danger">Breaking Change Notification</h3>-->
-    <!--<p>-->
-        <!--<strong>Note:</strong> On May 20 2014 the following changes to event names & payload will go into production and this-->
-        <!--documentation will be updated. The old and the new will operate in parallel from May 10-20 to allow users to-->
-        <!--migrate their code.-->
-    <!--</p>-->
-    <!--{% include statusBlockParam.html source=page.webhook_bc %}-->
-<!--</div>-->
-
 <p>
     A webhook is an HTTP endpoint you publish that Message Bus POSTs events to when they occur. Your data comes to you,
     instead of you needing to fetch it. The performance requirements for your webhook server depends entirely on how
@@ -260,7 +248,7 @@ status:
 </ol>
 </p>
 
-<h3 class="text-info"><a id="{{ page.tocSubheads[0][0] }}">{{ page.tocSubheads[0][1] }}</a></h3>
+<h3 class="text-info"><a id="{{ page.tocSubheads[0][0] }}"></a>{{ page.tocSubheads[0][1] }}</h3>
 <p>
     The webhook data indicates the type and number of events contained in this call. Objects in the
     <code>events</code> collection contain a set of standard fields plus the event-specific fields defined in the next
@@ -268,8 +256,8 @@ status:
 </p>
 {% include statusBlockParam.html source=page.envelope %}
 
-<h3 class="text-info"><a id="{{ page.tocSubheads[1][0] }}">{{ page.tocSubheads[1][1] }}</a></h3>
-<p class="subhead"><a id="{{ page.webhookEvents[0][0] }}">{{ page.webhookEvents[0][1] }}</a></p>
+<h3 class="text-info"><a id="{{ page.tocSubheads[1][0] }}"></a>{{ page.tocSubheads[1][1] }}</h3>
+<p class="subhead"><a id="{{ page.webhookEvents[0][0] }}"></a>{{ page.webhookEvents[0][1] }}</p>
 <p>
     Generated when a new message is created via API or the SMTP Relay. The <code>messageId</code> field can
     be used to aggregate all subsequent events generated for this particular message, and the <code>recipient</code>
@@ -280,7 +268,7 @@ status:
     <strong>Note:</strong> The <code>{{ page.webhookEvents[0][1] }}</code> event has no payload other than the envelope.
 </div>
 
-<p class="subhead"><a id="{{ page.webhookEvents[1][0] }}">{{ page.webhookEvents[1][1] }}</a></p>
+<p class="subhead"><a id="{{ page.webhookEvents[1][0] }}"></a>{{ page.webhookEvents[1][1] }}</p>
 <p>
     Generated when a message is successfully delivered to the recipient domain. This does not mean that the recipient
     has gotten the message - after delivery, you receive a <code>{{ page.webhookEvents[2][1] }}</code> event indicating a
@@ -288,7 +276,7 @@ status:
 </p>
 {% include statusBlockParam.html source=page.accept %}
 
-<p class="subhead"><a id="{{ page.webhookEvents[2][0] }}">{{ page.webhookEvents[2][1] }}</a></p>
+<p class="subhead"><a id="{{ page.webhookEvents[2][0] }}"></a>{{ page.webhookEvents[2][1] }}</p>
 <p>
     Generated when a message has bounced. A message is said to <em>bounce</em> if it's not possible to deliver it to the
     intended recipient. Bounces are commonly classified into one of two types:
@@ -313,7 +301,7 @@ status:
 </p>
 {% include statusBlockParam.html source=page.bounce %}
 
-<p class="subhead"><a id="{{ page.webhookEvents[3][0] }}">{{ page.webhookEvents[3][1] }}</a></p>
+<p class="subhead"><a id="{{ page.webhookEvents[3][0] }}"></a>{{ page.webhookEvents[3][1] }}</p>
 <p>
     Generated when the recipient domain has temporarily refused delivery of a message. The most common reason is
     sending too many messages over a given timeframe (e.g. hour). Message Bus will attempt to deliver deferred
@@ -323,13 +311,13 @@ status:
 </p>
 {% include statusBlockParam.html source=page.deferral %}
 
-<p class="subhead"><a id="{{ page.webhookEvents[4][0] }}">{{ page.webhookEvents[4][1] }}</a></p>
+<p class="subhead"><a id="{{ page.webhookEvents[4][0] }}"></a>{{ page.webhookEvents[4][1] }}</p>
 <p>
     Generated when a message is opened.
 </p>
 {% include statusBlockParam.html source=page.open %}
 
-<p class="subhead"><a id="{{ page.webhookEvents[5][0] }}">{{ page.webhookEvents[5][1] }}</a></p>
+<p class="subhead"><a id="{{ page.webhookEvents[5][0] }}"></a>{{ page.webhookEvents[5][1] }}</p>
 <p>
     Generated when a tracked link is clicked.
 </p>
@@ -343,7 +331,7 @@ status:
 </p>
 {% include statusBlockParam.html source=page.unsub %}
 
-<p class="subhead"><a id="{{ page.webhookEvents[7][0] }}">{{ page.webhookEvents[7][1] }}</a></p>
+<p class="subhead"><a id="{{ page.webhookEvents[7][0] }}"></a>{{ page.webhookEvents[7][1] }}</p>
 <p>
     Generated when a message is reported as spam.
 </p>
@@ -351,7 +339,7 @@ status:
     <strong>Note:</strong> The <code>{{ page.webhookEvents[7][1] }}</code> event has no payload other than the envelope.
 </div>
 
-<p class="subhead"><a id="{{ page.webhookEvents[8][0] }}">{{ page.webhookEvents[8][1] }}</a></p>
+<p class="subhead"><a id="{{ page.webhookEvents[8][0] }}"></a>{{ page.webhookEvents[8][1] }}</p>
 <p>
     Generated when Message Bus stops delivery of a message because the recipient is on the Global or Channel blocklist.
 </p>
@@ -362,14 +350,14 @@ status:
 
 
 <h2>Reports</h2>
-<h3 class="text-info"><a id="{{ page.tocSubheads[2][0] }}">{{ page.tocSubheads[2][1] }}</a></h3>
+<h3 class="text-info"><a id="{{ page.tocSubheads[2][0] }}"></a>{{ page.tocSubheads[2][1] }}</h3>
 <p>
     Statistical reports present aggregate data, summed across the entire account (default) or a specific channel or
     session.
 </p>
 {% include apiBlockParam.html source=page.stats %}
 
-<h3 class="text-info"><a id="{{ page.tocSubheads[3][0] }}">{{ page.tocSubheads[3][1] }}</a></h3>
+<h3 class="text-info"><a id="{{ page.tocSubheads[3][0] }}"></a>{{ page.tocSubheads[3][1] }}</h3>
 <p>
     Feedback reports return lists of email addresses and other metadata associated with a specific event, the report type
     is named after the event.
@@ -402,7 +390,7 @@ DATA1,  DATA2,  DATA3,  ...\r\n
 
 {% for item in page.feedback %}
     {% assign params = item[2] %}
-    <p class="subhead"><a id="{{ item[0] }}">{{ item[0] | capitalize }} {% unless forloop.first %} Report {% endunless %}</a></p>
+    <p class="subhead"><a id="{{ item[0] }}"></a>{{ item[0] | capitalize }} {% unless forloop.first %} Report {% endunless %}</p>
     <p>
         {{ item[1] }}
     </p>

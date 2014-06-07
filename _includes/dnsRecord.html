@@ -1,0 +1,9 @@
+<h3 class="text-info"><a id="{{ include.section[0] }}">{{ include.section[1] }}</a></h3>
+{% for subsection in include.section[2] %}
+    <p class="subhead">{{ subsection[0] }}</p>
+    <p>
+        {{ subsection[1] }}
+    </p>
+<pre class="dns-record">{% for record in subsection[2] %}{{ record[0] }}  {{ record[1] }}  {{ record[2] }}  {{ record[3] }}
+{% endfor %}</pre>
+{% endfor %}

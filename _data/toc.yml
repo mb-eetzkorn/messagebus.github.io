@@ -10,7 +10,8 @@ api:
         [general, 1],
         [
           [general/statuscodes, "Status & Error Codes"],
-          [general/relay,       "Using the SMTP Relay"]
+          [general/relay,       "Using the SMTP Relay"],
+          [general/dns,         "DNS Configuration"]
         ]
     ]
 

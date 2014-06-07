@@ -1,0 +1,128 @@
+---
+layout: default
+title: DNS Configuration
+
+tocSubheads:
+    - [
+        sending,
+        "Sending Email",
+        [
+            [
+                "Bounce Routing & SPF",
+                "This record ensures that when one of your messages is bounced (e.g. bad address, mailbox is full), the
+                domain generating the bounce knows how to route the message back to your Message Bus account. You may
+                also see this referred to as the domain portion of the <em>bounce address</em>, <em>return path</em>, or
+                <em>envelope sender</em>. This value is also used by the receiving domain to evaluate SPF, an email
+                security protocol that determines if the domain the message appears to be from has authorized the IP
+                address used to transmit the message to do so. Messages failing this check may be refused delivery or
+                discarded by the recipient domain.",
+                [
+                    ["bounces.[org_domain]", "86400", "CNAME", "smtp.[org_name].messagebus.com"]
+                ]
+            ],
+            [
+                "DKIM & DMARC",
+                "These records complement SPF, mentioned above, in providing additional security checks and policy that
+                help ISPs evaluate whether a message is genuine and take action based on the result.",
+                [
+                    ["sharedpool._domainkey.[org_domain]", "21600", "CNAME", "sharedpool._domainkey.[org_name].messagebus.com"],
+                    ["_dmarc.[org_domain]", "               86400", "CNAME", "_dmarc.[org_name].messagebus.com"]
+                ]
+            ],
+            [
+                "Channel Authorization",
+                "Channels are allowed to send email for a single organizational domain. When a channel is created and mapped
+                to a domain, you are given an authorization token that must be placed in the DNS at that domain. The channel
+                will not activate until it sees the token in place.",
+                [
+                    ["[org_domain]", "86400", "TXT", "mb-domain-verification=00001111222233334444555566667777"]
+                ]
+            ]
+        ]
+    ]
+
+    - [
+        tracking,
+        "Tracking Email",
+        [
+            [
+                "Engagement & Unsubscribe",
+                "Some of our most popular features (e.g. unsubscribe, click tracking) are based on HTTP URLs using a
+                technique called link tracking. The way it works is by routing anything clickable in your email through
+                Message Bus. In order to do that, we rewrite the links to cause the click to visit our servers before
+                continuing on to the original destination. This doesn't affect the user's experience, but it allows
+                us to track your most popular links, how many messages were opened, and so on, as well as identify
+                recipients who never engage with your messages and to whom you should not longer send.",
+                [
+                    ["services.[org_domain]", "86400", "CNAME", "services.[org_name].messagebus.com"]
+                ]
+            ]
+        ]
+    ]
+
+    #- [mailbox,  "Receiving Email"]
+
+terms:
+    fields: [Term, Definition]
+    values:
+        - [
+            "Organizational Domain",
+            "If you send email from <code>hello@foo.bar.com</code>, we refer to <code>bar.com</code> as the
+             <strong>organizational domain</strong>, shortened to <code>[org_domain]</code> in our documentation."
+        ]
+
+        - [
+            "Organization Name",
+            "We use <code>[org_name]</code> to refer only to the <code>bar</code> in <code>bar.com</code>."
+        ]
+---
+
+<header class="mb-docs-header">
+    <h1 class="text-primary page-title">{{ page.title }}</h1>
+    <p class="lead">
+        Message Bus makes extensive use of the DNS to implement email feedback systems and ensure best practices are
+        followed.
+    </p>
+</header>
+
+<h3 class="text-info">Overview</h3>
+<p>
+    This section will walk you through the DNS changes required to connect your sending domain and other resources
+    to your Message Bus account, and should be completed before you try to send. Some steps are required for account
+    activation, so you'll be unable to send without first having completed them.
+</p>
+
+<p class="subhead">Record Format</p>
+<p>
+    The convention used to describe DNS records is described below, and should match the terms and options available
+    to you in your DNS provider's admin tools.
+</p>
+<pre class="dns-record">domain  ttl  record_type  record_value</pre>
+
+<p class="subhead">Terms</p>
+<p>
+    There are a few terms that you should be familiar with when implementing your DNS records.
+</p>
+{% include statusBlockParam.html source=page.terms %}
+
+<div class="alert alert-warning">
+    In many cases the <code>record_value</code> is a hostname that has automatically been created for you based on
+    information collected when you signed up or configured a channel. If you cannot find those records in the DNS,
+    immediately contact your account manager, or email support@messagebus.com.
+</div>
+
+
+{% for section in page.tocSubheads %}
+    {% include dnsRecord.html section=section %}
+{% endfor %}
+
+<h3 class="text-info">Complete Example</h3>
+<p>
+    If your sending domain is <code>giantrobot.com</code>, then the complete set of records you would publish to get
+    your Message Bus account up and running would be as follows.
+</p>
+<pre class="dns-record">giantrobot.com                        86400  TXT    mb-domain-verification=120985812098418240984212312981
+bounces.giantrobot.com                86400  CNAME  smtp.giantrobot.messagebus.com
+sharedpool._domainkey.giantrobot.com  21600  CNAME  sharedpool._domainkey.giantrobot.messagebus.com
+_dmarc.giantrobot.com                 86400  CNAME  _dmarc.giantrobot.messagebus.com
+services.giantrobot.com               86400  CNAME  services.giantrobot.messagebus.com</pre>

@@ -1,11 +1,11 @@
 (function() {
 
-  if($('#menu-affix').outerHeight() < $(window).outerHeight()) {
+  if($('#menu-affix').parent().outerHeight() < $(window).outerHeight()) {
 
     $('#menu-affix').affix({
       offset: {
-        top: 10,
-        bottom: 150
+        top: 0,
+        bottom: 80
       }
     });
 

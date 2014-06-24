@@ -41,8 +41,8 @@
                   <ul class="toc-main">
                       {% for chapter in intro.chapters %}
                       <li>
-                          <a {% if page.title == chapter[1] %} class="active-section" {% endif %} href="{{ site.data.paths.docs }}/{{ chapter[0] }}">{{ chapter[1] }}</a>
-                          {% if page.tocSubheads and page.title == chapter[1] %}
+                          <a {% if page.title contains chapter[1] %} class="active-section" {% endif %} href="{{ site.data.paths.docs }}/{{ chapter[0] }}">{{ chapter[1] }}</a>
+                          {% if page.tocSubheads and page.title contains chapter[1] %}
                           <ul class="toc-subhead">
                               {% for subhead in page.tocSubheads %}
                               <li>
@@ -69,7 +69,7 @@
                           {% if linkit == 1 %}</a>{% endif %}
                       </h3>
 
-                      {% if page.tocSubheads and page.title == title %}
+                      {% if page.tocSubheads and page.title contains title %}
                       <ul class="toc-subhead">
                           {% for subhead in page.tocSubheads %}
                           <li>
@@ -82,8 +82,8 @@
                       <ul class="toc-main">
                           {% for section in chapter[1] %}
                           <li>
-                              <a {% if page.title == section[1] %} class="active-section" {% endif %} href="{{ site.data.paths.docs }}/{{ section[0] }}">{{ section[1] }}</a>
-                              {% if page.tocSubheads and page.title == section[1] %}
+                              <a {% if page.title contains section[1] %} class="active-section" {% endif %} href="{{ site.data.paths.docs }}/{{ section[0] }}">{{ section[1] }}</a>
+                              {% if page.tocSubheads and page.title contains section[1] %}
                               <ul class="toc-subhead">
                                   {% for subhead in page.tocSubheads %}
                                   <li>

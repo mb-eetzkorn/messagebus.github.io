@@ -8,6 +8,8 @@ path: templates
 
 sample: false
 
+optional: [customHeaders]
+
 request:
     - [sessionKey, guid, "The session to use when sending this template."]
     - [toEmail, string, "The recipient's email address."]
@@ -43,7 +45,7 @@ status:
     Creates a new template using the specified message fields and returns a unique <code>templateKey</code>.
 </p>
 
-{% include apiBlockParam.html title="Request"  source=page.request type="hasContent" %}
+{% include apiBlockParam.html title="Request"  source=page.request optional=page.optional type="hasContent" %}
 {% include apiBlockParam.html title="Response" source=page.response %}
 {% include statusBlockParam.html source=page.status %}
 

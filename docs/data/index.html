@@ -162,7 +162,7 @@ feedback:
         "Retuns a list of bounced <code>Message-IDs</code> & email addresses. Bounces are assigned a <code>bounceCode</code> that
         specifies the exact reason a message bounced.",
         [
-            [bounceCode, int, "The <a href=\"/docs/general/statuscodes/#bounces\">bounce classification code</a>."]
+            [bounceCode, int, "The <a href=\"/docs/getting started/statuscodes/#bounces\">bounce classification code</a>."]
         ]
     ]
 
@@ -202,7 +202,7 @@ feedback:
         bad addresses (e.g. hard bounces) or they have opted-out of traffic from one or more of your channels. The
         <code>blockCode</code> indicates the reason.",
         [
-            [blockCode, int, "<a href=\"/docs/general/statuscodes/#blocks\">Block classification code</a>."]
+            [blockCode, int, "<a href=\"/docs/getting started/statuscodes/#blocks\">Block classification code</a>."]
         ]
     ]
 
@@ -272,7 +272,7 @@ status:
 <p>
     Generated when a message is successfully delivered to the recipient domain. This does not mean that the recipient
     has gotten the message - after delivery, you receive a <code>{{ page.webhookEvents[2][1] }}</code> event indicating a
-    <a href="/docs/general/statuscodes#bounces">soft bounce</a> has occurred.
+    <a href="/docs/getting started/statuscodes#bounces">soft bounce</a> has occurred.
 </p>
 {% include statusBlockParam.html source=page.accept %}
 
@@ -297,7 +297,7 @@ status:
     </li>
 </ol>
 <p>
-    Use the <a href="/docs/general/statuscodes#bounces">bounce subcode list</a> to determine the bounce's exact cause.
+    Use the <a href="/docs/getting started/statuscodes#bounces">bounce subcode list</a> to determine the bounce's exact cause.
 </p>
 {% include statusBlockParam.html source=page.bounce %}
 

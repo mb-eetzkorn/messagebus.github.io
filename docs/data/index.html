@@ -352,18 +352,6 @@ status:
 
 
 <h2>Reports</h2>
-<h3 class="text-info"><a id="{{ page.tocSubheads[2][0] }}"></a>{{ page.tocSubheads[2][1] }}</h3>
-<p>
-    Statistical reports present aggregate data, summed across the entire account (default) or a specific channel or
-    session.
-</p>
-{% include apiBlockParam.html source=page.stats %}
-
-<h3 class="text-info"><a id="{{ page.tocSubheads[3][0] }}"></a>{{ page.tocSubheads[3][1] }}</h3>
-<p>
-    Feedback reports return lists of email addresses and other metadata associated with a specific event, the report type
-    is named after the event.
-</p>
 <p class="subhead">Data Formats</p>
 <p>
     Because we don't know how large any given report is going to be, we stream them back formatted either as
@@ -389,6 +377,19 @@ status:
 LABEL1, LABEL2, LABEL3, ...\r\n
 DATA1,  DATA2,  DATA3,  ...\r\n
 </pre>
+
+<h3 class="text-info"><a id="{{ page.tocSubheads[2][0] }}"></a>{{ page.tocSubheads[2][1] }}</h3>
+<p>
+    Statistical reports present aggregate data, summed across the entire account (default) or a specific channel or
+    session.
+</p>
+{% include apiBlockParam.html source=page.stats %}
+
+<h3 class="text-info"><a id="{{ page.tocSubheads[3][0] }}"></a>{{ page.tocSubheads[3][1] }}</h3>
+<p>
+    Feedback reports return lists of email addresses and other metadata associated with a specific event, the report type
+    is named after the event.
+</p>
 
 {% for item in page.feedback %}
     {% assign params = item[2] %}

@@ -9,13 +9,16 @@ tocSubheads:
 api:
     fields: [Code, Status, Description]
     values:
-        - [0, Success, "The API call succeeded completely and without error."]
-        - [1001, General Failure, "An error occurred but no extended information is available."]
+        - [0,    Success,            "The API call succeeded completely and without error."]
+        - [1001, General Failure,    "An error occurred but no extended information is available."]
         - [1002, Message Validation, Missing or invalid <code>toEmail</code>.]
         - [1003, Message Validation, Missing or invalid <code>fromEmail</code>.]
         - [1004, Message Validation, Missing <code>subject</code>.]
-        - [1005, Message Validation, Missing or invalid <code>returnPath</code>.]
-        - [1006, Message Validation, Missing or invalid <code>Message-Id</code> header.]
+        - [1005, Message Validation, "Missing or invalid <code>plaintextBody</code> or <code>htmlBody</code>."]
+        - [1006, Message Validation, "A user-specified <code>Message-Id</code> header was disallowed by the API call."]
+        - [1009, Message Validation, "Unsubscribe-related information was expected but not found."]
+        - [1010, API Failure,        "A <code>sessionKey</code> was expected but could not be found."]
+        - [1012, Message Validation, Missing or invalid <code>returnPath</code>.]
 
 bounce:
     suppress: [10, 1010]
@@ -66,7 +69,7 @@ block:
             {{ page.bounce.suppress | jsonify }}.forEach(
                 function(id)
                 {
-                    $('#_' + id).addClass('warning');
+                    $('#_bounce_' + id).addClass('warning');
                 });
         });
     }
@@ -95,7 +98,7 @@ block:
     addresses generating these codes will be added to the global blocklist and future messages to those addresses
     will be suppressed.
 </div>
-{% include statusBlockParam.html source=page.bounce %}
+{% include statusBlockParam.html name='bounce' source=page.bounce %}
 
 <h3 id="blocks" class="text-info">Block Codes</h3>
 <p>

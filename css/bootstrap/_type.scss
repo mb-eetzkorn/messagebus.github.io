@@ -282,3 +282,12 @@ address {
   font-style: normal;
   line-height: $line-height-base;
 }
+
+// Font weight fixes
+
+b,
+strong,
+thead,
+.label{
+  font-weight: 500 !important;
+}

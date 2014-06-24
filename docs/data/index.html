@@ -1,6 +1,9 @@
 ---
 layout: default
-title: Data
+title: Data 101
+lead: "The Message Bus Data API provides access to your data via webhooks for real-time data and
+       batch-style reports for aggregate & historical data. This overview details the event types and report formats
+       you'll encounter."
 
 sample: false
 
@@ -223,15 +226,14 @@ status:
         - [404, "Request failed; invalid report key."]
 ---
 
-<div class="page-header">
-    <h1>Data 101</h1>
-</div>
-<p>
-    The {{ site.data.company.name }} Data API provides access to your data via webhooks for real-time data and
-    batch-style reports for aggregate & historical data. This overview details the event types and report formats
-    you'll encounter.
-</p>
+<header class="mb-docs-header">
+    <h1 class="text-primary page-title">{{ page.title }}</h1>
+    <p class="lead">
+        {{ page.lead }}
+    </p>
+</header>
 
+<h3 class="text-info">Webhooks</h3>
 <p>
     A webhook is an HTTP endpoint you publish that Message Bus POSTs events to when they occur. Your data comes to you,
     instead of you needing to fetch it. The performance requirements for your webhook server depends entirely on how

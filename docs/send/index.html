@@ -8,7 +8,7 @@ path: messages/send
 
 sample: false
 
-optional: [sessionKey, toName, fromName, htmlBody, plaintextBody, customHeaders]
+optional: [sessionKey, toName, fromName, htmlBody, plaintextBody, messageProperties, customHeaders]
 
 request:
     - [
@@ -24,6 +24,7 @@ request:
             [subject, string, The message subject line],
             [plaintextBody, string, "The plain text version of the message, shown by mail programs that cannot render HTML"],
             [htmlBody, string, The HTML version of the message],
+            [messageProperties, object, Custom properties to associate with the message. Whatever you set in <code>messageProperties</code> will be included in webhook events for the message.],
             [customHeaders, collection, Custom headers to insert into the message]
         ]
     ]

@@ -39,6 +39,7 @@ envelope:
                 [channelKey, guid, "The channel the message was sent over."],
                 [sessionKey, guid, "The session key used to send the message."],
                 [eventTime, datetime, "Event timestamp in GMT."],
+                [messageProperties, object, "Any custom properties associated with the original message. Not present in <code>recipient.complained</code> or soft bounces."],
                 [..., "", ""]
             ]
         ]

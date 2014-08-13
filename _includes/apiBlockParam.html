@@ -70,9 +70,13 @@ Usage:
 
     <tr>
         {% if param[1] == 'collection' or param[1] == 'object' %}
-        <td class="field-name">
+        <td {% if optional_outer_param == true %} class="field-name optional-param" {% else %} class="field-name" {% endif %}>
             {{ param[0] }}
+
+            {% comment %}
             {% if optional_outer_param == true %}<span class="label label-default pull-right">Optional</span>{% endif %}
+            {% endcomment %}
+
         </td>
         <td>{{ param[1] }}</td>
         <td>
@@ -88,9 +92,22 @@ Usage:
 
                 <tr>
                     {% for item in param %}
-                        <td {% if forloop.first %} class="field-name" style="width: 30%;" {% endif %}>
+                        <td
+                            {% if forloop.first %}
+
+                                {% if optional_inner_param == true %}
+                                    class="field-name optional-param"
+                                {% else %}
+                                    class="field-name"
+                                {% endif %}
+
+                            {% endif %}
+
+                        style="width: 30%;">
+
                             {{ item }}
-                            {% if forloop.first and optional_inner_param == true %}<span class="label label-default pull-right">Optional</span>{% endif %}
+
+                            {% comment %} {% if forloop.first and optional_inner_param == true %}<span class="label label-default pull-right">Optional</span>{% endif %} {% endcomment %}
                         </td>
                     {% endfor %}
                 </tr>
@@ -99,9 +116,22 @@ Usage:
         </td>
         {% else %}
             {% for item in param %}
-            <td {% if forloop.first %} class="field-name" {% endif %}>
+            <td
+                {% if forloop.first %}
+
+                    {% if optional_outer_param == true %}
+                        class="field-name optional-param"
+                    {% else %}
+                        class="field-name"
+                    {% endif %}
+
+                {% endif %}
+            >
+
                 {{ item }}
-                {% if forloop.first and optional_outer_param == true %}<span class="label label-default pull-right">Optional</span>{% endif %}
+
+
+                {% comment %} {% if forloop.first and optional_outer_param == true %}<span class="label label-default pull-right">Optional</span>{% endif %} {% endcomment %}
             </td>
             {% endfor %}
         {% endif %}

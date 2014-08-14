@@ -10,6 +10,7 @@ sample: false
 tocSubheads:
     - [eventformat,    "Webhook Format"]
     - [eventreference, "Webhook Events"]
+    - [reportapi,      "Using the Report API"]
     - [stats,          "Statistical Reports"]
     - [feedback,       "Feedback Reports"]
 
@@ -356,7 +357,34 @@ status:
 
 
 
-<h2>Reports</h2>
+<h2><a id="{{ page.tocSubheads[2][0] }}"></a>Reports</h2>
+<p class="subhead">{{ page.tocSubheads[2][1] }}</p>
+<p>
+    The Report API is designed to complement Webhooks. Webhooks present small amounts of data in real-time so you can
+    integrate email-based invents into your app. Reports give you access to the entire history of your account. Report
+    data typically lags Webhooks by about 60 seconds and you must fetch the data instead of having it pushed to you.
+</p>
+<p>
+    Every interaction with the Report API consists of three steps:
+</p>
+<ol>
+    <li>
+        <strong>Create</strong> the type of report you want over a specific timeframe. If successful, the API gives
+        you a <code>reportKey</code>.
+    </li>
+    <li>
+        <strong>Poll</strong> for the report's status. Several codes indicate whether the report job is still running,
+        has failed, yielded no data, and so on. When the report status is <code>failed</code> it could be due to a
+        transient infrastructure issue so it is always a good idea to wait 30-60 seconds and try again.
+    </li>
+    <li>
+        <strong>Download</strong> the report data. When the report is <code>done</code> it is ready for you to download.
+        On occasion, with very large datasets, there may be a delay before the data becomes available while we're
+        transferring it to the download server. If your report status is <code>done</code> and you retrieve and empty
+        dataset, retry after 30 seconds.
+    </li>
+</ol>
+
 <p class="subhead">Data Formats</p>
 <p>
     Because we don't know how large any given report is going to be, we stream them back formatted either as
@@ -383,14 +411,14 @@ LABEL1, LABEL2, LABEL3, ...\r\n
 DATA1,  DATA2,  DATA3,  ...\r\n
 </pre>
 
-<h3 class="text-info"><a id="{{ page.tocSubheads[2][0] }}"></a>{{ page.tocSubheads[2][1] }}</h3>
+<h3 class="text-info"><a id="{{ page.tocSubheads[3][0] }}"></a>{{ page.tocSubheads[3][1] }}</h3>
 <p>
     Statistical reports present aggregate data, summed across the entire account (default) or a specific channel or
     session.
 </p>
 {% include apiBlockParam.html source=page.stats %}
 
-<h3 class="text-info"><a id="{{ page.tocSubheads[3][0] }}"></a>{{ page.tocSubheads[3][1] }}</h3>
+<h3 class="text-info"><a id="{{ page.tocSubheads[4][0] }}"></a>{{ page.tocSubheads[4][1] }}</h3>
 <p>
     Feedback reports return lists of email addresses and other metadata associated with a specific event, the report type
     is named after the event.

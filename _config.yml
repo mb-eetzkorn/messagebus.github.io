@@ -3,7 +3,7 @@ destination: ./_site
 plugins:     ./_plugins
 layouts:     ./_layouts
 
-exclude: [_internal, main.scss, bootstrap.scss, Gemfile.lock, Gemfile, README.md]
+exclude: [_internal, legal, main.scss, bootstrap.scss, Gemfile.lock, Gemfile, README.md]
 
 # safe: true
 lsi: false
@@ -12,3 +12,15 @@ redcarpet:
   extensions: []
 
 encoding: utf-8
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      host: https://api.messagebus.com
+  -
+    scope:
+      path: "docs/templates"
+    values:
+      host: https://templates.messagebus.com

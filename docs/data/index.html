@@ -163,7 +163,7 @@ feedback:
     ]
 
     - [
-        bounce,
+        bounces,
         "Use the <code>bounces</code> feedback report scope to create a list of bounced <code>Message-IDs</code> & email addresses.
         Bounces are assigned a <code>bounceCode</code> that specifies the exact reason a message bounced.",
         [
@@ -172,7 +172,7 @@ feedback:
     ]
 
     - [
-        complaint,
+        complaints,
         "Use the <code>complaints</code> feedback report scope to create a list of <code>Message-IDs</code> & email addresses
         associated with spam complaint reports. Future messages to these email addresses over the specified channel
         will be suppressed.",
@@ -180,7 +180,7 @@ feedback:
     ]
 
     - [
-        unsub,
+        unsubscribes,
         "Use the <code>unsubscribes</code> feedback report scope to create a list of email addresses that have unsubscribed from
         the specified channel. Future messages to these email addresses sent over the channel will be suppressed, but
         messages sent on other channels will not. To insert unsubscribe information into your messages simply place the
@@ -189,14 +189,14 @@ feedback:
     ]
 
     - [
-        open,
+        opens,
         "Use the <code>opens</code> feedback report scope to create a list of <code>Message-IDs</code> that were opened and the
         email addresses the messages were delivered to.",
         [ "empty" ]
     ]
 
     - [
-        click,
+        clicks,
         "Use the <code>clicks</code> feedback report to retrieve a list of email addresses and <code>Message-IDs</code> that
         have clicked tracked links in your emails. The <code>mbTrackingId</code> is added to the end of a URL by the
         sender to instruct Message Bus to track the link, for example <code>http://example.com/deals?mbTrackingID=123456</code>.",
@@ -206,7 +206,7 @@ feedback:
     ]
 
     - [
-        block,
+        blocks,
         "Use the <code>blocks</code> feedback report to create a list of email addresses that Message Bus suppressed on your
         behalf because they are known bad addresses (e.g. hard bounces) or they have opted-out of traffic from one or
         more of your channels. The <code>blockCode</code> indicates the reason.",

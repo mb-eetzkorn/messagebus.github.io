@@ -63,6 +63,14 @@ status:
     Sends messages singly or in batches of up to 100 messages. The Send API is best for messages that are completely unrelated or have highly personalized or widely variable
     content, where templates would have limited advantage or increased overhead relative to simpler API calls.
 </p>
+<div class="alert alert-warning">
+    <strong>Handling HTTP 500 Errors</strong>
+    <p>
+        Always retry sending when you receive a <code>500-level</code> response.
+        This is a clear indication that the API server didn't process your request. Best practice is to wait 30-60
+        seconds before retrying to allow the condition to clear.
+    </p>
+</div>
 
 {% include apiBlockParam.html title="Request"  source=page.request optional=page.optional type="hasContent" %}
 {% include apiBlockParam.html title="Response" source=page.response %}

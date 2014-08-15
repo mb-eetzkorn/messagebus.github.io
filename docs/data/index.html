@@ -11,8 +11,9 @@ tocSubheads:
     - [eventformat,    "Webhook Format"]
     - [eventreference, "Webhook Events"]
     - [reportapi,      "Using the Report API"]
-    - [stats,          "Statistical Reports"]
+    - [stats,          "Statistical Report"]
     - [feedback,       "Feedback Reports"]
+    - [blocklist,      "Blocklist Report"]
 
 webhookEvents:
     - [attempt, "message.created"]
@@ -118,16 +119,6 @@ unsub:
 
         - [ device, string, "Type of device the messages was opened on (e.g. tablet, mobile, etc.)"]
 
-reportTypes:
-    - [stats, "Statistics"]
-    - [bounce, "Bounces"]
-    - [complaint, "Complaints"]
-    - [unsub, "Unsubscribes"]
-    - [open, "Opens"]
-    - [click, "Clicks"]
-    - [block, "Blocks"]
-    - [blocklist, "Blocklist"]
-
 stats:
     - [sendHour,              datetime, "The hour in which the stats were collected."]
     - [channelKey,            guid,     "The channel associated with this report, if one was specified."]
@@ -215,11 +206,14 @@ feedback:
         ]
     ]
 
+blocklist:
     - [
         blocklist,
         "Returns the list of blocked addresses tracked in your account as well as the reason why they were blocked.",
         [
-            [reason, string, "The reason the address was added to the blocklist (e.g. complaint, unsub, etc.)"]
+            [channelKey, guid,   "The channel the address is blocked on."],
+            [email,      string, "The blocked address."],
+            [reason,     string, "The reason the address was added to the blocklist (e.g. complaint, unsub, etc.)"]
         ]
     ]
 
@@ -427,6 +421,22 @@ DATA1,  DATA2,  DATA3,  ...\r\n
 {% for item in page.feedback %}
     {% assign params = item[2] %}
     <p class="subhead"><a id="{{ item[0] }}"></a>{{ item[0] | capitalize }} {% unless forloop.first %} Report {% endunless %}</p>
+    <p>
+        {{ item[1] }}
+    </p>
+    {% if params[0] != "empty" %}
+        {% include apiBlockParam.html source=params %}
+    {% else %}
+    <div class="alert alert-warning">
+        <strong>Note:</strong> The <code>{{ item[0] }}</code> report type has no payload other than the common fields.
+    </div>
+    {% endif %}
+{% endfor %}
+
+<h3 class="text-info"><a id="{{ page.tocSubheads[5][0] }}"></a>{{ page.tocSubheads[5][1] }}</h3>
+
+{% for item in page.blocklist %}
+    {% assign params = item[2] %}
     <p>
         {{ item[1] }}
     </p>

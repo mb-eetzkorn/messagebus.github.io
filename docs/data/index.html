@@ -46,6 +46,11 @@ envelope:
             ]
         ]
 
+attempt:
+    fields: [Field, Type, Description]
+    values:
+        - [messageStatus, int, "The <a href=\"/docs/getting started/statuscodes#api\">status code</a> returned by the API when the message was created."]
+
 accept:
     fields: [Field, Type, Description]
     values:
@@ -266,9 +271,7 @@ status:
     field can be used to to accumulate statistics on a per-recipient basis. <strong>Always the first event generated
     for a given message.</strong>
 </p>
-<div class="alert alert-warning">
-    <strong>Note:</strong> The <code>{{ page.webhookEvents[0][1] }}</code> event has no payload other than the envelope.
-</div>
+{% include statusBlockParam.html source=page.attempt %}
 
 <p class="subhead"><a id="{{ page.webhookEvents[1][0] }}"></a>{{ page.webhookEvents[1][1] }}</p>
 <p>

@@ -2,29 +2,25 @@
 layout: api
 
 # ----- API DOCUMENTATION -----
-title: Modify Session
-method: PUT
+title: Archive Session
+method: DELETE
 path: channel/:channelKey/session/:sessionKey
 
 sample: false
 
-request:
-    - [sessionName, string, "The friendly name of the new session."]
-    - [active,      bool,   "Changes the <code>sessionStatus</code> from <code>active</code> to <code>closed</code> and vice-versa."]
-
 # do not add response envelope fields, they're automatically included
 response:
-    - [sessionName,   string, "Echoes the <code>sessionName</code> request parameter."]
-    - [sessionStatus, bool,   "Echose the <code>active</code> request parameter."]
-
+    - [sessionName,   string, "The archived session's name."]
+    - [sessionKey,    guid,   "The archived session's GUID."]
+    - [sessionStatus, string, "The session's current state, always <code>archived</code> for DELETEd sessions."]
 
 status:
     fields: [statusCode, statusMessage]
     values:
-        - [200, "Configuration updated."]
+        - [200, "Session archived."]
         - [400, "One or more parameters were invalid."]
         - [401, "Unauthorized; missing or invalid API key."]
-        - [403, "Default session cannot be closed."]
+        - [403, "Default session cannot be archived."]
         - [406, "Not acceptable; use application/json; charset=utf-8."]
 # -----------------------------
 ---
@@ -34,7 +30,10 @@ status:
     Must be valid HTML.
 -->
 <p>
-    Modifies the session parameters contained in the request body. Currently limited to renaming the session.
+    Soft-deletes the session. The <code>sessionKey</code> can no longer be used for any purpose, and this action
+    cannot be reversed through the API. You must contact <a href="mailto:support@messagebus.com">support</a> to recover
+    a deleted session. When listing the sessions for a channel, <code>status: archived</code> can be used to identify
+    deleted sessions.
 </p>
 <p>
     When considering whether to <code>close</code> or <code>archive</code>, the difference is that <code>closed</code>
@@ -50,12 +49,8 @@ status:
 <!--
     The first two are required for every API, optionally show as many error cases as are instructive.
 -->
-<h3 class="text-info">Usage</h3>
-<span class="label label-primary">Request</span>
-{% gist messagebus/0257f05ad6d935265ada %}
-
 <span class="label label-success">Response</span>
-{% gist messagebus/71fb2f2223e58a863dc3 %}
+{% gist messagebus/e29c837db832f6b8aa8c %}
 
 <!--
     Set sample == true in the frontmatter if you add sample code. Add as many as you like, but to keep pages consistent

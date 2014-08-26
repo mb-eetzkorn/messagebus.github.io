@@ -18,12 +18,13 @@ api:
     - [
         [channels, 1],
         [
-          [channels/list,          "List Channels"],
-          [channels/get,           "Get Channel"],
-          [channels/put,           "Configure Channel"],
-          [channels/sessions/list, "List Sessions"],
-          [channels/sessions/post, "Create Session"],
-          [channels/sessions/put,  "Modify Session"]
+          [channels/list,            "List Channels"],
+          [channels/get,             "Get Channel"],
+          [channels/put,             "Configure Channel"],
+          [channels/sessions/list,   "List Sessions"],
+          [channels/sessions/post,   "Create Session"],
+          [channels/sessions/put,    "Modify Session"],
+          [channels/sessions/delete, "Archive Session"]
         ]
     ]
 

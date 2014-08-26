@@ -13,8 +13,9 @@ request:
 
 # do not add response envelope fields, they're automatically included
 response:
-    - [sessionName, string, "Echoes the <code>sessionName</code> request parameter."]
-    - [sessionKey, guid, "The new channel's unique ID."]
+    - [sessionName,   string, "Echoes the <code>sessionName</code> request parameter."]
+    - [sessionKey,    guid,   "The new session's unique ID."]
+    - [sessionStatus, string, "The session's current state, always <code>active</code> for new sessions."]
 
 status:
     fields: [statusCode, statusMessage]

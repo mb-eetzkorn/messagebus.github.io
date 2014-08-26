@@ -4,7 +4,7 @@ layout: api
 # ----- API DOCUMENTATION -----
 title: List Sessions
 method: GET
-path: channel/:channelKey/sessions
+path: channel/:channelKey/sessions[?show=all | closed | archived]
 
 sample: false
 
@@ -15,9 +15,10 @@ response:
         sessions,
         collection,
         [
-            [sessionKey, guid, "The session's unique ID."],
-            [sessionName, string, "The session's friendly name."],
-            [isDefault, bool, "If true, this is the channel's default session."]
+            [sessionKey,    guid,   "The session's unique ID."],
+            [sessionName,   string, "The session's friendly name."],
+            [sessionStatus, string, "The session's current state: <code>active</code>, <code>closed</code>, or <code>archived</code>."],
+            [isDefault,     bool,   "If true, this is the channel's default session."]
         ]
     ]
 

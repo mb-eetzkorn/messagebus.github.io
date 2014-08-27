@@ -19,6 +19,8 @@ api:
         - [1009, Message Validation, "Unsubscribe-related information was expected but not found."]
         - [1010, API Failure,        "A <code>sessionKey</code> was expected but could not be found."]
         - [1012, Message Validation, Missing or invalid <code>returnPath</code>.]
+        - [1013, Session Validation, "Cannot send on a <code>closed</code> session."]
+        - [1014, Session Validation, "Cannot send on an <code>archived</code> session."]
 
 bounce:
     suppress: [10, 1010]
@@ -52,9 +54,6 @@ bounce:
                             formerly active accounts that have been abandoned and/or closed."]
         - [1011, Rejected, "The recipient domain rejected the message for policy reasons, the recipient address is
                             valid."]
-        - [1012, Message Validation, "Missing or invalid <code>returnPath</code>."]
-        - [1013, Session Validation, "Cannot send on a <code>closed</code> session."]
-        - [1014, Session Validation, "Cannot send on an <code>archived</code> session."]
 
 block:
     fields: [Code, Type, Description]

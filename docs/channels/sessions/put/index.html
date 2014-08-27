@@ -37,10 +37,20 @@ status:
     Modifies the session parameters contained in the request body. Currently limited to renaming the session.
 </p>
 <p>
-    When considering whether to <code>close</code> or <code>archive</code>, the difference is that <code>closed</code>
-    sessions can no longer be used to send mail. It is convenient to close them once you are done sending so that the
-    number of messages remains fixed, making ratio-based metrics stable (e.g. open rate) and so they can be filtered in
-    dashboard and in API calls.
+    Soft-deletes the session. The <code>sessionKey</code> can no longer be used for any purpose, and this action
+    cannot be reversed through the API. You must contact <a href="mailto:support@messagebus.com">support</a> to recover
+    a deleted session. When listing the sessions for a channel, <code>sessionStatus: archived</code> can be used to identify
+    deleted sessions.
+</p>
+<p>
+    When considering whether to close or archive a session, the difference is that <code>closed</code>
+    sessions can be used just like <code>active</code> ones except they cannot send messages. It is convenient to close
+    a session once you are done sending so that the number of messages remains fixed, making ratio-based metrics stable
+    (e.g. open rate) and so they can be filtered in the dashboard and in API calls.
+</p>
+<p>
+    <code>Archived</code> sessions are unavailable everywhere, move sessions into this state when you don't need them
+    or their data anymore. Think of this as housekeeping.
 </p>
 
 {% include apiBlockParam.html title="Request"  source=page.request type="hasContent" %}

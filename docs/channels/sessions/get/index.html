@@ -2,32 +2,25 @@
 layout: api
 
 # ----- API DOCUMENTATION -----
-title: List Sessions
+title: Get Session
 method: GET
-path: channel/:channelKey/sessions[?show=all | *active | closed | archived]
+path: channel/:channelKey/session/:sessionKey
 
 sample: false
 
 # do not add response envelope fields, they're automatically included
 response:
-    - [count, int, "The number of sessions attached to the channel."]
-    - [
-        sessions,
-        collection,
-        [
-            [sessionKey,    guid,   "The session's unique ID."],
-            [sessionName,   string, "The session's friendly name."],
-            [sessionStatus, string, "The session's current state: <code>active</code>, <code>closed</code>, or <code>archived</code>."],
-            [isDefault,     bool,   "If true, this is the channel's default session."]
-        ]
-    ]
+    - [sessionKey,    guid,   "The session's unique ID."]
+    - [sessionName,   string, "The session's friendly name."]
+    - [sessionStatus, string, "The session's current state: <code>active</code> or <code>closed</code>."]
+    - [isDefault,     bool,   "If true, this is the default session on its parent channel."]
 
 status:
     fields: [statusCode, statusMessage]
     values:
         - [200, "Ok"]
         - [401, "Unauthorized; missing or invalid API key."]
-        - [404, "Request failed; the channel does not exist."]
+        - [404, "Request failed; session does not exist or has been archived."]
 # -----------------------------
 ---
 
@@ -36,8 +29,8 @@ status:
     Must be valid HTML.
 -->
 <p>
-    Gets the list of sessions attached to the specified channel. Use the <code>?show=</code> query-string parameter
-    to filter by <code>sessionStatus</code>. By default, only <code>active</code> sessions will be listed.
+    Returns current configuration values for the specified session. Only works with sessions in the <code>active</code>
+    and <code>closed</code> states. <code>Archived</code> sessions will return a <code>404</code>.
 </p>
 
 {% include apiBlockParam.html title="Request"  source=page.request type="noContent" %}
@@ -49,10 +42,10 @@ status:
 -->
 <h3 class="text-info">Usage</h3>
 <span class="label label-primary">Request</span>
-{% gist messagebus/a70bf1ae73daa03884f5 %}
+{% gist messagebus/5df325ead19ef3b6a1db %}
 
 <span class="label label-success">Response</span>
-{% gist messagebus/68a3c3630bbac3e25d39 %}
+{% gist messagebus/0919ccd99ddd29f2ba22 %}
 
 <!--
     Set sample == true in the frontmatter if you add sample code. Add as many as you like, but to keep pages consistent

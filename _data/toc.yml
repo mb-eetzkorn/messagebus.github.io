@@ -22,6 +22,7 @@ api:
           [channels/get,             "Get Channel"],
           [channels/put,             "Configure Channel"],
           [channels/sessions/list,   "List Sessions"],
+          [channels/sessions/get,    "Get Session"],
           [channels/sessions/post,   "Create Session"],
           [channels/sessions/put,    "Modify Session"],
           [channels/sessions/delete, "Archive Session"]

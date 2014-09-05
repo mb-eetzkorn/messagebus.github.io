@@ -92,7 +92,7 @@ click:
     fields: [Field, Type, Description]
     values:
         - [url, string, "The URL the user clicked."]
-        - [trackingId, string, "The value of the <code>mbTrackingId</code> value appended to the URL."]
+        - [trackingId, string, "The value of the <code>mbTrackingId</code> value appended to the URL, if present."]
         - [
             location,
             object,
@@ -324,7 +324,9 @@ status:
 
 <p class="subhead"><a id="{{ page.webhookEvents[5][0] }}"></a>{{ page.webhookEvents[5][1] }}</p>
 <p>
-    Generated when a tracked link is clicked.
+    Generated when a tracked link is clicked. Will only be generated if click tracking is enabled on the channel, and
+    requires that the original link contain the <code>mbTrackingId</code> query-string parameter or that the
+    <code>trackAllLinks</code> option is enabled.
 </p>
 {% include statusBlockParam.html source=page.click %}
 

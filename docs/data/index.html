@@ -40,7 +40,8 @@ envelope:
                 [subject, string, "Contents of the message's <code>Subject</code> header."],
                 [channelKey, guid, "The channel the message was sent over."],
                 [sessionKey, guid, "The session key used to send the message."],
-                [eventTime, datetime, "Event timestamp in GMT."],
+                [sendTime, datetime, "Time the parent message was sent (GMT)."],
+                [eventTime, datetime, "Time this event was generated (GMT)."],
                 [messageProperties, object, "Any custom properties associated with the original message. Not present in <code>recipient.complained</code> or soft bounces."],
                 [..., "", ""]
             ]

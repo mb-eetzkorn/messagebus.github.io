@@ -88,6 +88,7 @@ open:
         ]
 
         - [ device, string, "Type of device the message was opened on (e.g. tablet, mobile, etc.)"]
+        - [ userAgent, string, "The contents of the <code>User-Agent</code> HTTP header associated with the client."]
 
 click:
     fields: [Field, Type, Description]
@@ -107,6 +108,7 @@ click:
         ]
 
         - [ device, string, "Type of device the link was clicked on (e.g. tablet, mobile, etc.)"]
+        - [ userAgent, string, "The contents of the <code>User-Agent</code> HTTP header associated with the client."]
 
 unsub:
     fields: [Field, Type, Description]
@@ -124,6 +126,7 @@ unsub:
         ]
 
         - [ device, string, "Type of device the messages was opened on (e.g. tablet, mobile, etc.)"]
+        - [ userAgent, string, "The contents of the <code>User-Agent</code> HTTP header associated with the client."]
 
 stats:
     - [sendHour,              datetime, "The hour in which the stats were collected."]
@@ -244,16 +247,58 @@ status:
     A webhook is an HTTP endpoint you publish that Message Bus POSTs events to when they occur. Your data comes to you,
     instead of you needing to fetch it. The performance requirements for your webhook server depends entirely on how
     many messages you send and which events you register for. As a rule of thumb, expect to receive about <code>1.6x</code>
-    as many events as you send messages.
+    as many events as you send messages. For ease of implementation and maintenance, a single webhook endpoint can be
+    registered for multiple events.
 </p>
-<p>
-    Consider the following when setting up your webhook endpoint(s):
 
-<ol>
-    <li>A single webhook can be registered for multiple types of events.</li>
-    <li>If your webhook goes down, we'll retry for 24 hours before dropping an event.</li>
-    <li>Webhooks are called every 30 seconds or when 200 events of a single type have accumulated.</li>
-</ol>
+<h4 class="text-info">Webhook Frequency & Retry Logic</h4>
+<p>
+    Webhooks are called every 30 seconds or when 200 events of a single type have accumulated. If your webhook endpoint
+    goes down we'll retry for up to 24 hours (see schedule below) before dropping the event.
+
+    <ol>
+        <li>Immediately, then 2 attempts 5 seconds apart.</li>
+        <li>Every 2 minutes for 24 hours.</li>
+    </ol>
+</p>
+
+<h4 class="text-info">Location Data</h4>
+<p>
+    HTTP-based events such as <code>message.opened</code> and <code>link.clicked</code> may include a <code>location</code>
+    object containing IP-based location data such as latitude, longitude, region, etc. If you plan to use this data
+    there are a few caveats you should be aware of:
+</p>
+
+<p>
+<ul>
+    <li>
+        Messages received at Gmail and other ISPs employing image proxies will cause <code>message.opened</code> to
+        appear as if it is coming from a single location instead of where the user is actually located.
+    </li>
+    <li>
+        Proxied requests will also incorrectly report the <code>userAgent</code> value.
+    </li>
+    <li>
+        If we cannot determine IP-based location, the location object will be empty instead or <code>null</code>,
+        <code>undefined</code>, or other language-specific euphemism. We do this to prevent tightly-coupled
+        client-side object mapping from blowing up.
+    </li>
+</ul>
+</p>
+
+<h4 class="text-info">Subject Header</h4>
+<p>
+    The <code>Subject</code> header is currently not preserved in the following events:
+
+    <ul>
+        <li>message.opened</li>
+        <li>link.clicked</li>
+        <li>recipient.unsubscribed</li>
+        <li>recipient.complained</li>
+    </ul>
+
+    This will be resolved in an upcoming platform update where we will use the <code>messageProperties</code> mechanism
+    to preserve message metadata for all events.
 </p>
 
 <h3 class="text-info"><a id="{{ page.tocSubheads[0][0] }}"></a>{{ page.tocSubheads[0][1] }}</h3>

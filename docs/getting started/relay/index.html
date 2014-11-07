@@ -33,6 +33,15 @@ title: Using the SMTP Relay
     <code>API Key</code> as the password.
 </p>
 
+<div class="alert alert-warning">
+    <strong>STARTTLS vs. Secure Connections</strong>
+    <p>
+        <code>STARTTLS</code> refers to the command your server will issue to the Message Bus relay to upgrade an existing
+        clear-text connection to a secure one using TLS. Some servers negotiate a secure connection up-front, we support
+        that as well, just be sure and point your server to port <code>2465</code> instead of <code>2587</code>.
+    </p>
+</div>
+
 <h3 class="text-info">Message Routing</h3>
 <p class="subhead">Using the <code>From:</code> address</p>
 <p>

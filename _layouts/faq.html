@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+<header class="mb-docs-header">
+    <h1 class="text-primary page-title">{{ page.title }}</h1>
+    <p class="lead">
+        {{ page.lead }}
+    </p>
+</header>
+<br/>
+<br/>
+
+{% for section in page.faqs %}
+<h3 class="text-info">{{ section[0] }}</h3>
+
+    {% for faq in section[1] %}
+        <div style="margin-left: 20px">
+            <p class="subhead"><a id="faq[0]">{{ faq[1] }}</a></p>
+            <p>
+                {{ faq[2] }}
+            </p>
+        </div>
+    {% endfor %}
+
+{% endfor %}

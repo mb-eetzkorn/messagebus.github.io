@@ -1,0 +1,38 @@
+---
+layout: faq
+title: Frequently Asked Questions
+lead: "Answers to common questions about the Message Bus platform & service."
+
+faqs:
+    - [
+        General,
+        [
+            [
+                general-sdks,
+                "How do I add a Custom Header?",
+                "<p>Many senders use custom headers to attach tracking information or other data. Common convention is
+                is to prefix private/custom headers with <code>x-</code> to make them easy to identify:</p>
+
+                <pre>x-header-name: value</pre>
+
+                <p>While this is not necessary, be aware that some email systems strip unrecognized headers that don't
+                use the prefix.</p>
+
+                <p>Custom headers can be set using the optional <code>customHeaders</code> field, which is an object
+                specifying the headers in key/value form:</p>
+
+                <pre>customHeaders: { \"x-header-name\" : \"cool stuff\" }</pre>
+
+                <p>In a message template, the header value <code>cool stuff</code> can also be tokenize like
+                <code>{{ header_value }}</code></p>
+
+                <p>Private headers aren't the only good use of the <code>customHeaders</code> field, you can override
+                some standard headers as well. For example, by setting the <code>reply-to</code> header you tell
+                mail readers where to send replies (sometimes you don't want them going to the From address, like
+                if you have a single mailbox for all support-related issues.</p>
+
+                <pre>customHeaders: { \"reply-to\" : \"support@mydomain.com\"}</pre>"
+            ]
+        ]
+    ]
+---

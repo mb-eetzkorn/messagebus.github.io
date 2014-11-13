@@ -11,7 +11,8 @@ api:
         [
           [getting started/statuscodes, "Status & Error Codes"],
           [getting started/relay,       "Using the SMTP Relay"],
-          [getting started/dns,         "DNS Configuration"]
+          [getting started/dns,         "DNS Configuration"],
+          [getting started/faq,         "FAQ"]
         ]
     ]
 

@@ -5189,6 +5189,10 @@ a.active-section {
   margin-top: 1em;
   color: #999999; }
 
+p.subhead a {
+  text-decoration: none;
+  color: #999999; }
+
 h3.text-info a {
   text-decoration: none;
   color: #31708f; }

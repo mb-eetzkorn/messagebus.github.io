@@ -181,11 +181,56 @@ feedback:
 
     - [
         unsubscribes,
-        "Use the <code>unsubscribes</code> feedback report scope to create a list of email addresses that have unsubscribed from
-        the specified channel. Future messages to these email addresses sent over the channel will be suppressed, but
-        messages sent on other channels will not. To insert unsubscribe information into your messages simply place the
-        <code>%UNSUBSCRIBE_URL%</code> token in an anchor tag (for HTML messages) or anywhere in a plaintext message.",
-        [ "empty" ]
+        "Use the <code>unsubscribes</code> feedback report scope to create a list of email addresses that have unsubscribed.
+        <div class=\"alert alert-warning\">
+            <strong>Note:</strong> The <code>unsubscribes</code> report type has no payload other than the common fields.
+        </div>
+
+        <h4 class=\"text-info\">Configuring Unsubscribe</h4>
+        <p>
+            Message Bus give you a lot of control over the unsubscribe user experience. You can offer links allowing the
+            user to opt-out of the current channel or all channels, and you can choose to have the user redirected to a
+            custom landing page (e.g. preference center) after the unsubscribe is processed. See the sections below for
+            more information.
+        </p>
+        <div class=\"alert alert-info\">
+            <strong>List-Unsubscribe</strong><br/>
+            We automatically insert a <code>List-Unsubscribe</code> header when you use our unsubscribe function. If you're
+            using both channel and account-level unsubscribe in the same message, the header will contain the channel-level
+            unsubscribe link.
+        </div>
+        <h5 class=\"text-info\">Option 1: Simple Unsubscribe</h5>
+        <p>
+            When the user clicks a simple unsubscribe link, we'll record the event and show the user a very simple
+            Message Bus-branded Thank You page.
+        </p>
+        <p>
+            To allow users to unsubscribe from the channel the message was sent over, simply place the <code>%UNSUBSCRIBE_URL%</code>
+            token inside an anchor tag (for HTML messages) or anywhere in a plain-text message. Future messages to these email
+            addresses sent over the channel will be suppressed, but messages sent on other channels will continue to be
+            delivered.
+        </p>
+        <p>
+            To allow users to unsubscribe from <strong>ALL</strong> channels, use the <code>%ACCOUNT_UNSUBSCRIBE_URL%</code>
+            token just as you would use the channel-only unsub token.
+        </p>
+        <div class=\"alert alert-info\">
+            <strong>Tip:</strong> Do it Moustache-style<br/>
+            Instead of of the <code>%</code> token-delimiter, you can also use Moustache tags: <code>{{ UNSUBSCRIBE_URL }}</code>
+        </div>
+
+        <h5 class=\"text-info\">Option 2: Pass-Through Unsubscribe</h5>
+        <p>
+            When your user clicks a pass-through unsubscribe link, we'll record the event and then redirect them wherever
+            you want, just like we do with link tracking. This allows you to use Message Bus as a fail-safe for your existing
+            unsubscribe system and/or allows you to show custom content after the unsubscribe is processed.
+        </p>
+        <p>
+            To enable Pass-Through Unsubscribe, simply add the URL to your unsubscribe system or custom landing page to
+            your email, appending the <code>mbUnsub</code> query param so we know it is an unsubscribe link. <code>mbUnsub</code>
+            can be set to either <code>unsubscribe</code> or <code>account_unsubscribe</code> as needed.
+        </p>
+        "
     ]
 
     - [

@@ -188,17 +188,11 @@ feedback:
 
         <h4 class=\"text-info\">Configuring Unsubscribe</h4>
         <p>
-            Message Bus give you a lot of control over the unsubscribe user experience. You can offer links allowing the
+            Message Bus gives you a lot of control over the unsubscribe user experience. You can offer links allowing the
             user to opt-out of the current channel or all channels, and you can choose to have the user redirected to a
-            custom landing page (e.g. preference center) after the unsubscribe is processed. See the sections below for
-            more information.
+            custom landing page on your site (e.g. preference center) after we have processed the unsubscribe.
+            See the sections below for more information.
         </p>
-        <div class=\"alert alert-info\">
-            <strong>List-Unsubscribe</strong><br/>
-            We automatically insert a <code>List-Unsubscribe</code> header when you use our unsubscribe function. If you're
-            using both channel and account-level unsubscribe in the same message, the header will contain the channel-level
-            unsubscribe link.
-        </div>
         <h5 class=\"text-info\">Option 1: Simple Unsubscribe</h5>
         <p>
             When the user clicks a simple unsubscribe link, we'll record the event and show the user a very simple
@@ -207,9 +201,12 @@ feedback:
         <p>
             To allow users to unsubscribe from the channel the message was sent over, simply place the <code>%UNSUBSCRIBE_URL%</code>
             token inside an anchor tag (for HTML messages) or anywhere in a plain-text message. Future messages to these email
-            addresses sent over the channel will be suppressed, but messages sent on other channels will continue to be
+            addresses, sent over the channel will be suppressed but messages sent on other channels will continue to be
             delivered.
         </p>
+        <pre>
+            &lt;a href=\"%UNSUBSCRIBE_URL%\"&gt;Click here to never again receive this lovely goodness.&lt;/a&gt;
+        </pre>
         <p>
             To allow users to unsubscribe from <strong>ALL</strong> channels, use the <code>%ACCOUNT_UNSUBSCRIBE_URL%</code>
             token just as you would use the channel-only unsub token.
@@ -230,7 +227,15 @@ feedback:
             your email, appending the <code>mbUnsub</code> query param so we know it is an unsubscribe link. <code>mbUnsub</code>
             can be set to either <code>unsubscribe</code> or <code>account_unsubscribe</code> as needed.
         </p>
-        "
+        <pre>
+            &lt;a href=\"https://my.domain/landingPage?mbUnsub=account_unsubscribe\"&gt;...&lt;/a&gt;
+        </pre>
+        <div class=\"alert alert-info\">
+            <strong>List-Unsubscribe</strong><br/>
+            We automatically insert a <code>List-Unsubscribe</code> header when you use our unsubscribe function. If you're
+            using both channel and account-level unsubscribe in the same message, the header will contain the channel-level
+            unsubscribe link.
+        </div>"
     ]
 
     - [
